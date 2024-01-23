@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zote</title>
+  <link rel="icon" href="icon.ico">
+  <link rel="stylesheet" type="text/css" href="estilo_pre.css">
+  <script src="https://kit.fontawesome.com/2d02c042f3.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="divTipoBins">
+    <label>Tipo Bins</label>
+    <select id="tipoBins">
+      <option value="44"> BIP </option>
+      <option value="66"> BIM </option>
+    </select><br><hr><hr><hr>
+  </div>
+  <div id="xRomana">
+    <input type="checkbox" id="check1"><label for="check1" id="expansor1">
+      <i class="fa-solid fa-truck-moving"></i> Por Romana
+    </label>
+    <div class="xRomanaHidden">
+      <input type="number" placeholder="Peso Entrada" id="pesoEntrada" value="" required><br>
+      <input type="number" placeholder="Peso Salida" id="pesoSalida" value="" required><br>
+      <input type="number" placeholder="Cantidad de Bins" id="numeroBins1" value="" required><br>
+      <button type="button" id="boton">Asignar Kg/Bt</button><br>
+      <t3 id="resultado1"></t3><br>
+    </div>
+  </div><hr><hr><hr>
+  <div id="xOficina">
+    <input type="checkbox" id="check2"><label for="check2" id="expansor2">
+      <i class="fa-solid fa-truck-moving"></i> Por Oficina
+    </label>
+    <form id="xOficinaHidden">
+      <input type="number" placeholder="Cantidad de Bins" id="numeroBins2" value=""><br>
+      <input type="number" placeholder="Peso Torre" id="pesoTorre" value="" required><br>
+      <input type="submit" id="submit"><br>
+      <div id="mensajeEliminacion">Doble click para eliminar</div>
+      <div>
+        <div id="resultado3"></div><br>
+        <div id="pesoBinsVacios"></div><br>
+        <div id="soloFruta"></div><br>
+        <div id="promedio"></div><br>
+        <div id="resultado2"></div>
+      </div>
+    </form></div>
+</body>
+<script src="CodigoBins.js"></script>
+</html>
