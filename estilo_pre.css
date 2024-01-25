@@ -5,7 +5,6 @@
 /*# sourceMappingURL=pico.min.css.map */
 #divTipoBins{
   z-index: 2;
-  background-color: #fff;
   width: 400px;
   position: relative;
   margin: 0 auto;
@@ -34,22 +33,26 @@
   position: relative;
   margin: 0 auto; 
   opacity: 0;
-	transform: translateY(-500px);
+	transform: translateX(-500px);
 	opacity: 0;
 	transition: 400ms;
   overflow: hidden;
   z-index: 1;
 }
-.mostrar{
-  transform: translateY(0px);
+.mostrar1{
+  transform: translateX(0px);
   opacity: 1;
 }
+/* .mostrar2{
+  transform: translateX(0px);
+  opacity: 0.5;
+} Si es un form, mejor hacerlo x JS, x aca no va a afacetar al elemento del mismo modo que afecta a un div*/
 /* #check1:checked ~ .xRomanaHidden {
   display: block;
   opacity: 1;
 } */
 
-#xOficinaHidden{
+.xOficinaHidden{
   display: inline-block;
   width: 400px;
   height: min-content;
@@ -57,18 +60,23 @@
   position: relative;
   margin: 0 auto; 
   opacity: 0;
-
-	opacity: 0;
+  transform: translateX(0px);
 	transition: 400ms;
   overflow: hidden;
   z-index: 1;
 }
 #xOficina{
   width: 400px;
+  height: min-content;
+  justify-content: center;
   position: relative;
   margin: 0 auto;
+  height: 45px;
 }
 #check1{
+  display: none;
+}
+#check2{
   display: none;
 }
 #mensajeEliminacion{

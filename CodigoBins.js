@@ -23,18 +23,18 @@ boton.addEventListener("click", ()=>{
 }});
 check1.addEventListener("change",()=>{
   if (check1.checked) {
-    xRomanaHidden.classList.add("mostrar");
-    xRomana.style.height = "fit-content"
+    xRomanaHidden.classList.add("mostrar1");
+    xRomana.style.height = "fit-content";
   }else{
-    xRomanaHidden.classList.remove("mostrar");
-    xRomana.style.height = "45px"
+    xRomanaHidden.classList.remove("mostrar1");
+    xRomana.style.height = "45px";
   }
 })
 
 
 let pesoTorre = document.getElementById("pesoTorre");
 const submit = document.getElementById("submit");
-let xOficinaHidden = document.getElementById("xOficinaHidden");
+let xOficinaHidden = document.querySelector(".xOficinaHidden");
 let xOficina = document.getElementById("xOficina");
 let resultado2 = document.getElementById("resultado2");
 let resultado3 = document.getElementById("resultado3");
@@ -44,15 +44,6 @@ let soloFruta = document.getElementById("soloFruta");
 let promedio = document.getElementById("promedio");
 const check2 = document.getElementById("check2");
 
-check2.addEventListener("change",()=>{
-  if (check2.checked) {
-    xOficinaHidden.classList.add("mostrar");
-    xOficina.style.height = "fit-content"
-  }else{
-    xOficinaHidden.classList.remove("mostrar");
-    xOficina.style.height = "45px"
-  }
-})
 
 xOficinaHidden.addEventListener("submit",evt=>{
   evt.preventDefault();
@@ -87,6 +78,23 @@ xOficinaHidden.addEventListener("submit",evt=>{
     }
     actualizarValor();
 })
+check2.addEventListener("change",()=>{
+  if (check2.checked) {
+    // xOficinaHidden.classList.add("mostrar2");
+    xOficina.style.height = "fit-content";
+    xOficina.style.transition = "all 3s ease";
+    xOficinaHidden.style.opacity = "1";
+    xOficinaHidden.style.transform = "translateX(0px)";
+  }else{
+    // xOficinaHidden.classList.remove("mostrar2");
+    // clases no afectan de lamisma manera a un div que a un form
+    xOficina.style.height = "45px";
+    xOficina.style.transition = "all 3s ease";
+    xOficinaHidden.style.opacity = "0";
+    xOficinaHidden.style.transform = "translateX(-450px)";
+  }
+})
+
 
 
 
