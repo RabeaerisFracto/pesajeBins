@@ -87,5 +87,21 @@
   border: 1px dashed #bbb;
   font-size: larger;
 }
-
-
+@media print {
+  body {
+    visibility: hidden;
+  }
+  #aImprimir {
+    visibility: visible;
+    position: absolute;
+    left: 50px;
+    top: -150mm;
+    margin-top: 150mm;
+    color: black;
+    background: white;
+    font-size: 22px;
+    width: 100%;
+    height: 100%;
+    padding-top: -50mm;
+  }
+}

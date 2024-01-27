@@ -74,7 +74,7 @@ xOficinaHidden.addEventListener("submit",evt=>{
       let resultadoSoloFruta = sumaTorres-resultadoBinsVacios;
       soloFruta.innerHTML = "Solo la fruta pesa "+resultadoSoloFruta;
       let kgBt = resultadoSoloFruta/numeroBins2.value;
-      promedio.innerHTML = "Eso da un promedio de "+kgBt+" por bins";
+      promedio.innerHTML = "Eso da un promedio de "+kgBt.toFixed(5)+" por bins";
     }
     actualizarValor();
 })
