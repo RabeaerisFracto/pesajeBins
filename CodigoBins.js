@@ -52,15 +52,36 @@ var promedio = document.getElementById("promedio");
 var check2 = document.getElementById("check2");
 var checkPremium = document.getElementById("s1-14");
 var totes2 = document.getElementById("totes2");
+var checkCalculoTotes = document.getElementById("s1-2");
+var divCalcTotes = document.querySelector(".checkbox-wrapper-2");
+// function calcularTotes(){
+//   if (checkCalculoTotes.checked && Number(numeroBins2.value) > 0|| totes2.value === ""){
+//     numeroBins2.addEventListener("input",()=>{
+//       totes2.value = (Number(numeroBins2.value)*24).toString();
+// })}}
 checkPremium.addEventListener("change", function () {
     if (checkPremium.checked) {
         totes2.style.display = "block";
         totes2.setAttribute("required", "true");
         totes2.setAttribute("value", "");
+        divCalcTotes.style.display = "block";
     }
     else {
+        divCalcTotes.style.display = "none";
         totes2.style.display = "none";
         totes2.setAttribute("value", "0");
+    }
+});
+checkCalculoTotes.addEventListener("change", function () {
+    if (checkCalculoTotes.checked) {
+        numeroBins2.addEventListener("input", function () {
+            totes2.value = (Number(numeroBins2.value) * 24).toString();
+        });
+    }
+    else {
+        numeroBins2.addEventListener("input", function () {
+            totes2.value = totes2.value = "";
+        });
     }
 });
 var sumaTorres = 0; //se inicializa en 0 para declarar antes del uso (del loop). Abajo se usa como acumulador.
@@ -94,7 +115,7 @@ xOficinaHidden.addEventListener("submit", function (evt) {
         sumaTorres = arrayPesos.reduce(function (accumulator, currentValue) { return accumulator + currentValue; }, 0); // Acaba siendo un acumulador.
         resultado3.innerHTML = "La suma de bins da " + sumaTorres;
         resultadoBinsVacios = (Number(tipoBins.selectedOptions[0].value) * Number(numeroBins2.value)) + Number(totes2.value);
-        pesoBinsVacios.innerHTML = "El peso de bins sin fruta es " + resultadoBinsVacios;
+        pesoBinsVacios.innerHTML = "El peso de los recipientes sin fruta es " + resultadoBinsVacios;
         resultadoSoloFruta = sumaTorres - resultadoBinsVacios;
         soloFruta.innerHTML = "Solo la fruta pesa " + resultadoSoloFruta;
         kgBt = resultadoSoloFruta / (checkPremium.checked ? Number(totes2.value) : Number(numeroBins2.value));
