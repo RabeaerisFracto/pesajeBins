@@ -3,7 +3,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zote</title>
-  <link rel="icon" href="icon.ico">
+  <meta name="keywords" content="Calculo, pesajes, camiones">
+	<meta name="description" content="Calculo pesaje camiones">
+	<meta name="author" content="AMoncada">
+	<meta name="copyright" content="AMoncada">
+	<meta name="robots" content="index">
+  <link rel="icon" href="iconZote.ico">
   <link rel="stylesheet" type="text/css" href="estilo_pre.css">
   <script src="https://kit.fontawesome.com/2d02c042f3.js" crossorigin="anonymous"></script>
 </head>
@@ -26,24 +31,30 @@
       <button type="button" id="boton">Asignar Kg/Bt</button><br>
       <t3 id="resultado1"></t3><br>
     </div>
-  </div><hr><hr><hr>
+  </div>
   <div id="xOficina">
     <input type="checkbox" id="check2"><label for="check2" id="expansor2">
       <i class="fa-solid fa-weight-scale"></i> Por Oficina
     </label>
     <form class="xOficinaHidden">
-      <input type="number" placeholder="Cantidad de Bins" id="numeroBins2" value="22"><br>
-      <input type="number" placeholder="Peso Torre" id="pesoTorre" value="10500" required><br>
+      <div class="checkbox-wrapper-14">
+        <input id="s1-14" type="checkbox" class="switch">
+        <label for="s1-14">Totes</label>
+      </div>
+      <input type="number" placeholder="Totes" id="totes2" value="">
+      <input type="number" placeholder="Cantidad de Bins" id="numeroBins2" value="9" required><br>
+      <input type="number" placeholder="Peso Torre" id="pesoTorre" value="4220" required><br>
       <input type="submit" id="submit"><br>
-      <div id="mensajeEliminacion">Doble click para eliminar</div>
+      <input  type="button" id="limpiarTodo" value="Limpiar Todo"></input>
+      <div id="aImprimir">
+        <div id="resultado3"></div>
+        <div id="pesoBinsVacios"></div>
+        <div id="soloFruta"></div>
+        <div id="promedio"></div>
+        <div id="resultado2"></div>
+      </div>
     </form>
-    <div id="aImprimir">
-      <div id="resultado3"></div>
-      <div id="pesoBinsVacios"></div>
-      <div id="soloFruta"></div>
-      <div id="promedio"></div>
-      <div id="resultado2"></div>
-    </div>
+
   </div>
 
 </body>
