@@ -2,25 +2,34 @@ var tipoBins = document.getElementById("tipoBins");
 var pesoEntrada = document.getElementById("pesoEntrada");
 var pesoSalida = document.getElementById("pesoSalida");
 var numeroBins1 = document.getElementById("numeroBins1");
-var resultado = document.getElementById("resultado1");
 var boton = document.getElementById("boton");
+var promedioBinsRomana = document.getElementById("promedioBinsRomana");
 var check1 = document.getElementById("check1");
 var xRomana = document.getElementById("xRomana");
 var xRomanaHidden = document.querySelector(".xRomanaHidden");
-if (boton) { // Checkeo de null. Si no existe el boton, no se ejecuta el codigo. Si type esta definido en la constante, no tira error.
-    boton.addEventListener("click", function () {
-        if (pesoEntrada.value.trim() === "" ||
-            pesoSalida.value.trim() === "" ||
-            numeroBins1.value.trim() === "") {
-            resultado.textContent = "Por favor, complete todos los campos";
-        }
-        else {
-            resultado.textContent =
-                "Resultado: " +
-                    (parseInt(pesoEntrada.value) - parseInt(pesoSalida.value) - parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value)) / parseInt(numeroBins1.value);
-        }
-    });
-}
+xRomanaHidden.addEventListener("submit", function (evt) {
+    evt.preventDefault();
+    console.log("Formulario enviado");
+    promedioBinsRomana.innerHTML =
+        "Diferencia de peso: " + (parseInt(pesoEntrada.value) - parseInt(pesoSalida.value)) +
+            "<br>Peso de Recipientes: " + parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value) +
+            "<br/>Solo Fruta: " + (parseInt(pesoEntrada.value) - parseInt(pesoSalida.value) - parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value)) +
+            "<br/>Promedio: " + (parseInt(pesoEntrada.value) - parseInt(pesoSalida.value) - parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value)) / parseInt(numeroBins1.value);
+});
+var limpiarRomana = document.getElementById("limpiarRomana");
+limpiarRomana.addEventListener("click", function () {
+    promedioBinsRomana.style.transition = "all 0.5s ease";
+    promedioBinsRomana.style.opacity = "0";
+    numeroBins1.value = "";
+    numeroBins1.focus();
+    pesoEntrada.value = "";
+    pesoSalida.value = "";
+    console.log("Romana limpiada");
+    setTimeout(function () {
+        promedioBinsRomana.innerHTML = "";
+        promedioBinsRomana.style.opacity = "1";
+    }, 510);
+});
 check1.addEventListener("change", function () {
     if (check1.checked) {
         // xOficinaHidden.classList.add("mostrar2");
@@ -72,6 +81,7 @@ checkPremium.addEventListener("change", function () {
         totes2.setAttribute("value", "0");
     }
 });
+//CALCULO TOTES
 checkCalculoTotes.addEventListener("change", function () {
     if (checkCalculoTotes.checked) {
         numeroBins2.addEventListener("input", function () {
@@ -88,10 +98,12 @@ var sumaTorres = 0; //se inicializa en 0 para declarar antes del uso (del loop).
 var resultadoBinsVacios = 0;
 var resultadoSoloFruta = 0;
 var kgBt = 0;
+//IMPRESION DE RESULTADOS
 xOficinaHidden.addEventListener("submit", function (evt) {
     evt.preventDefault();
     aImprimir.style.transition = "all 0.5s ease";
     aImprimir.style.opacity = "1";
+    //PESO DE TORRES EN VIEWPORT
     var nuevoPeso = document.createElement("div");
     nuevoPeso.innerHTML = parseInt(pesoTorre.value).toString();
     resultado2.appendChild(nuevoPeso);
@@ -100,6 +112,7 @@ xOficinaHidden.addEventListener("submit", function (evt) {
         nuevoPeso.remove();
         actualizarValor();
     });
+    //FUNCION DE CALCULOS
     function actualizarValor() {
         var arrayPesos = [];
         for (var i = 0; i < resultado2.children.length; i++) {
@@ -111,7 +124,7 @@ xOficinaHidden.addEventListener("submit", function (evt) {
                 resultadoSoloFruta = 0;
                 kgBt = 0;
             }
-        }
+        } //CALCULOS
         sumaTorres = arrayPesos.reduce(function (accumulator, currentValue) { return accumulator + currentValue; }, 0); // Acaba siendo un acumulador.
         resultado3.innerHTML = "La suma de bins da " + sumaTorres;
         resultadoBinsVacios = (Number(tipoBins.selectedOptions[0].value) * Number(numeroBins2.value)) + Number(totes2.value);
@@ -122,12 +135,13 @@ xOficinaHidden.addEventListener("submit", function (evt) {
         promedio.innerHTML = isNaN(kgBt) ? '' : "Eso da un promedio de " + kgBt.toFixed(5) + " por bins";
     }
     actualizarValor();
+    //BOTON LIMPIAR
     var limpiarTodo = document.getElementById("limpiarTodo");
     limpiarTodo.addEventListener("click", function () {
+        numeroBins2.focus();
         aImprimir.style.transition = "all 0.5s ease";
         aImprimir.style.opacity = "0";
         numeroBins2.value = "";
-        totes2.value = "";
         kgBt = 0;
         console.log("Array vaciado");
         setTimeout(function () {
@@ -143,6 +157,7 @@ xOficinaHidden.addEventListener("submit", function (evt) {
         }, 510);
     });
 });
+//ESTILO xImprimir
 check2.addEventListener("change", function () {
     if (check2.checked) {
         // xOficinaHidden.classList.add("mostrar2");

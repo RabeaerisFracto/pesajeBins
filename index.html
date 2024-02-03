@@ -24,13 +24,14 @@
     <input type="checkbox" id="check1"><label for="check1" id="expansor1">
       <i class="fa-solid fa-truck-moving"></i> Por Romana
     </label>
-    <div class="xRomanaHidden">
+    <form class="xRomanaHidden">
+      <input type="number" placeholder="Cantidad de Bins" id="numeroBins1" value="" required><br>
       <input type="number" placeholder="Peso Entrada" id="pesoEntrada" value="" required><br>
       <input type="number" placeholder="Peso Salida" id="pesoSalida" value="" required><br>
-      <input type="number" placeholder="Cantidad de Bins" id="numeroBins1" value="" required><br>
-      <button type="button" id="boton">Asignar Kg/Bt</button><br>
-      <t3 id="resultado1"></t3><br>
-    </div>
+      <input type="submit" id="boton" value="Calcular"></input><br>
+      <input  type="button" id="limpiarRomana" value="Limpiar Romana"></input>
+      <div id="promedioBinsRomana"></div><br>
+    </form>
   </div>
   <div id="xOficina">
     <input type="checkbox" id="check2"><label for="check2" id="expansor2">
@@ -48,7 +49,7 @@
       <input type="number" placeholder="Totes" id="totes2" value="">
       <input type="number" placeholder="Cantidad de Bins" id="numeroBins2" value="" required><br>
       <input type="number" placeholder="Peso Torre" id="pesoTorre" value="" required><br>
-      <input type="submit" id="submit"><br>
+      <input type="submit" id="submit" value="Calcular"><br>
       <input  type="button" id="limpiarTodo" value="Limpiar Todo"></input>
       <div id="aImprimir">
         <div id="resultado3"></div>

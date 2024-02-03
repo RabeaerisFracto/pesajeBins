@@ -3,29 +3,42 @@ const tipoBins = document.getElementById("tipoBins") as HTMLSelectElement;
 let pesoEntrada = document.getElementById("pesoEntrada") as HTMLInputElement;
 let pesoSalida = document.getElementById("pesoSalida") as HTMLInputElement;
 let numeroBins1 = document.getElementById("numeroBins1") as HTMLInputElement;
+const boton = document.getElementById("boton") as HTMLFormElement;
 
-let resultado = document.getElementById("resultado1") as HTMLDivElement;
-const boton = document.getElementById("boton") as HTMLButtonElement;
+let promedioBinsRomana = document.getElementById("promedioBinsRomana") as HTMLDivElement;
+
 
 const check1 = document.getElementById("check1") as HTMLInputElement;
 const xRomana = document.getElementById("xRomana") as HTMLElement;
 const xRomanaHidden = document.querySelector(".xRomanaHidden") as HTMLElement;
 
-if (boton) {// Checkeo de null. Si no existe el boton, no se ejecuta el codigo. Si type esta definido en la constante, no tira error.
-  boton.addEventListener("click", () => {
-    if (
-      pesoEntrada.value.trim() === "" ||
-      pesoSalida.value.trim() === "" ||
-      numeroBins1.value.trim() === ""
-    ) {
-      resultado.textContent = "Por favor, complete todos los campos";
-    } else {
-      resultado.textContent =
-        "Resultado: " +
-        (parseInt(pesoEntrada.value) - parseInt(pesoSalida.value) - parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value)) / parseInt(numeroBins1.value);
-    }
-  });
-}
+xRomanaHidden.addEventListener("submit", evt => {
+  evt.preventDefault();
+  console.log("Formulario enviado");
+  promedioBinsRomana.innerHTML =
+    "Diferencia de peso: " +(parseInt(pesoEntrada.value) - parseInt(pesoSalida.value))+
+    "<br>Peso de Recipientes: " + parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value)+
+    "<br/>Solo Fruta: " + (parseInt(pesoEntrada.value) - parseInt(pesoSalida.value) - parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value))+
+    "<br/>Promedio: " + (parseInt(pesoEntrada.value) - parseInt(pesoSalida.value) - parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value)) / parseInt(numeroBins1.value);
+  }
+);
+const limpiarRomana = document.getElementById("limpiarRomana") as HTMLButtonElement;
+limpiarRomana.addEventListener("click",()=>{
+  promedioBinsRomana.style.transition = "all 0.5s ease";
+  promedioBinsRomana.style.opacity = "0";
+  numeroBins1.value = "";
+  numeroBins1.focus();
+  pesoEntrada.value = "";
+  pesoSalida.value = "";
+  console.log("Romana limpiada");
+  setTimeout(() => {
+    promedioBinsRomana.innerHTML = "";
+    promedioBinsRomana.style.opacity = "1";
+  }, 510);
+})
+
+
+
 check1.addEventListener("change",()=>{
   if (check1.checked) {
     // xOficinaHidden.classList.add("mostrar2");
@@ -84,6 +97,7 @@ checkPremium.addEventListener("change",()=>{
     totes2.setAttribute("value","0")
   }
 })
+//CALCULO TOTES
 checkCalculoTotes.addEventListener("change",()=>{
   if (checkCalculoTotes.checked){
     numeroBins2.addEventListener("input",()=>{
@@ -100,11 +114,13 @@ let resultadoBinsVacios:number = 0;
 let resultadoSoloFruta:number = 0;
 let kgBt:number = 0;
 
+
+//IMPRESION DE RESULTADOS
 xOficinaHidden.addEventListener("submit",evt=>{
   evt.preventDefault();
   aImprimir.style.transition = "all 0.5s ease";
   aImprimir.style.opacity = "1";
-
+//PESO DE TORRES EN VIEWPORT
   let nuevoPeso = document.createElement("div");
   nuevoPeso.innerHTML = parseInt(pesoTorre.value).toString();
   resultado2.appendChild(nuevoPeso);
@@ -113,6 +129,7 @@ xOficinaHidden.addEventListener("submit",evt=>{
     nuevoPeso.remove()
     actualizarValor();
   })
+  //FUNCION DE CALCULOS
   function actualizarValor(){
     let arrayPesos = [];
 
@@ -125,7 +142,7 @@ xOficinaHidden.addEventListener("submit",evt=>{
         resultadoSoloFruta=0;
         kgBt=0;
       }
-}
+}//CALCULOS
       sumaTorres = arrayPesos.reduce((accumulator, currentValue) => accumulator + currentValue,0,);// Acaba siendo un acumulador.
       resultado3.innerHTML = "La suma de bins da "+sumaTorres;
       resultadoBinsVacios = (Number(tipoBins.selectedOptions[0].value)*Number(numeroBins2.value))+Number(totes2.value);
@@ -136,27 +153,29 @@ xOficinaHidden.addEventListener("submit",evt=>{
       promedio.innerHTML = isNaN(kgBt) ? '' : "Eso da un promedio de "+kgBt.toFixed(5)+" por bins";
     }
     actualizarValor();
-    const limpiarTodo = document.getElementById("limpiarTodo") as HTMLButtonElement;
-limpiarTodo.addEventListener("click",()=>{
-  aImprimir.style.transition = "all 0.5s ease";
-  aImprimir.style.opacity = "0";
-  numeroBins2.value = "";
-  totes2.value = "";
-  kgBt=0;
-  console.log("Array vaciado");
-  setTimeout(() => {
-    resultado2.innerHTML = "";
-    resultado3.innerHTML = "";
-    pesoBinsVacios.innerHTML = "";
-    soloFruta.innerHTML = "";
-    promedio.innerHTML = "";
-    sumaTorres = 0;
-    resultadoBinsVacios=0;
-    resultadoSoloFruta=0;
-    actualizarValor();
-  }, 510);
+//BOTON LIMPIAR
+  const limpiarTodo = document.getElementById("limpiarTodo") as HTMLButtonElement;
+  limpiarTodo.addEventListener("click",()=>{
+    numeroBins2.focus();
+    aImprimir.style.transition = "all 0.5s ease";
+    aImprimir.style.opacity = "0";
+    numeroBins2.value = "";
+    kgBt=0;
+    console.log("Array vaciado");
+    setTimeout(() => {
+      resultado2.innerHTML = "";
+      resultado3.innerHTML = "";
+      pesoBinsVacios.innerHTML = "";
+      soloFruta.innerHTML = "";
+      promedio.innerHTML = "";
+      sumaTorres = 0;
+      resultadoBinsVacios=0;
+      resultadoSoloFruta=0;
+      actualizarValor();
+    }, 510);
 })
 })
+//ESTILO xImprimir
 check2.addEventListener("change",()=>{
   if (check2.checked) {
     // xOficinaHidden.classList.add("mostrar2");
