@@ -12,21 +12,53 @@ const check1 = document.getElementById("check1") as HTMLInputElement;
 const xRomana = document.getElementById("xRomana") as HTMLElement;
 const xRomanaHidden = document.querySelector(".xRomanaHidden") as HTMLElement;
 
+const checkTotesRomana = document.getElementById("s1-14Romana") as HTMLInputElement;//x CheckPremium1
+const totes1 = document.getElementById("totes1") as HTMLInputElement;
+const checkCalculoTotesRomana = document.getElementById("s1-2Romana") as HTMLInputElement;
+const divCalcTotesRomana = document.getElementById("checkbox-wrapper-2-Romana") as HTMLDivElement;
+//DISPLAY DE INPUT TOTES
+checkTotesRomana.addEventListener("change",()=>{
+  if (checkTotesRomana.checked) {
+    totes1.style.display = "block";
+    totes1.setAttribute("required","true");
+    totes1.setAttribute("value","");
+    divCalcTotesRomana.style.display = "block";
+  }else{
+    divCalcTotesRomana.style.display = "none";
+    totes1.style.display = "none";
+    totes1.setAttribute("value","0")
+  }
+})
+//CALCULO TOTES
+checkCalculoTotesRomana.addEventListener("change",()=>{
+  if (checkCalculoTotesRomana.checked){
+    numeroBins1.focus();
+    numeroBins1.addEventListener("input",()=>{
+    totes1.value = (Number(numeroBins1.value)*24).toString();
+  })
+}else{
+  numeroBins1.focus();
+  numeroBins1.addEventListener("input",()=>{
+    totes1.value = totes1.value = "";
+})}})
+
 xRomanaHidden.addEventListener("submit", evt => {
   evt.preventDefault();
   console.log("Formulario enviado");
   promedioBinsRomana.innerHTML =
     "Diferencia de peso: " +(parseInt(pesoEntrada.value) - parseInt(pesoSalida.value))+
-    "<br>Peso de Recipientes: " + parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value)+
-    "<br/>Solo Fruta: " + (parseInt(pesoEntrada.value) - parseInt(pesoSalida.value) - parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value))+
-    "<br/>Promedio: " + (parseInt(pesoEntrada.value) - parseInt(pesoSalida.value) - parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value)) / parseInt(numeroBins1.value);
+    "<br>Peso de Recipientes: " + (parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value)+ (parseInt(totes1.value)))+
+    "<br/>Solo Fruta: " + (parseInt(pesoEntrada.value) - parseInt(pesoSalida.value)- parseInt(totes1.value) - parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value))+
+    "<br/>Promedio: " + ((parseInt(pesoEntrada.value) - parseInt(pesoSalida.value) - (parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value)) - parseInt(totes1.value)) / (checkTotesRomana.checked ? parseInt(totes1.value) : parseInt(numeroBins1.value))).toFixed(5);
   }
 );
+//BOTON LIMPIAR Y ESTILO
 const limpiarRomana = document.getElementById("limpiarRomana") as HTMLButtonElement;
 limpiarRomana.addEventListener("click",()=>{
   promedioBinsRomana.style.transition = "all 0.5s ease";
   promedioBinsRomana.style.opacity = "0";
   numeroBins1.value = "";
+  totes1.value = "";
   numeroBins1.focus();
   pesoEntrada.value = "";
   pesoSalida.value = "";
@@ -38,7 +70,7 @@ limpiarRomana.addEventListener("click",()=>{
 })
 
 
-
+//--------------------OFICINA--------------------
 check1.addEventListener("change",()=>{
   if (check1.checked) {
     // xOficinaHidden.classList.add("mostrar2");
@@ -74,17 +106,12 @@ let promedio = document.getElementById("promedio") as HTMLDivElement;
 const check2 = document.getElementById("check2") as HTMLInputElement;
 
 
-const checkPremium = document.getElementById("s1-14") as HTMLInputElement;
+const checkPremium = document.getElementById("s1-14Oficina") as HTMLInputElement;
 const totes2 = document.getElementById("totes2") as HTMLInputElement;
-const checkCalculoTotes = document.getElementById("s1-2") as HTMLInputElement;
-const divCalcTotes = document.querySelector(".checkbox-wrapper-2") as HTMLDivElement;
+const checkCalculoTotes = document.getElementById("s1-2Oficina") as HTMLInputElement;
+const divCalcTotes = document.getElementById("checkbox-wrapper-2-Oficina") as HTMLDivElement;
 
-// function calcularTotes(){
-//   if (checkCalculoTotes.checked && Number(numeroBins2.value) > 0|| totes2.value === ""){
-//     numeroBins2.addEventListener("input",()=>{
-//       totes2.value = (Number(numeroBins2.value)*24).toString();
-// })}}
-
+//DISPLAY DE INPUT TOTES
 checkPremium.addEventListener("change",()=>{
   if (checkPremium.checked) {
     totes2.style.display = "block";
@@ -100,10 +127,12 @@ checkPremium.addEventListener("change",()=>{
 //CALCULO TOTES
 checkCalculoTotes.addEventListener("change",()=>{
   if (checkCalculoTotes.checked){
+    numeroBins2.focus();
     numeroBins2.addEventListener("input",()=>{
     totes2.value = (Number(numeroBins2.value)*24).toString();
   })
 }else{
+  numeroBins2.focus();
   numeroBins2.addEventListener("input",()=>{
     totes2.value = totes2.value = "";
 })}})

@@ -7,20 +7,55 @@ var promedioBinsRomana = document.getElementById("promedioBinsRomana");
 var check1 = document.getElementById("check1");
 var xRomana = document.getElementById("xRomana");
 var xRomanaHidden = document.querySelector(".xRomanaHidden");
+var checkTotesRomana = document.getElementById("s1-14Romana"); //x CheckPremium1
+var totes1 = document.getElementById("totes1");
+var checkCalculoTotesRomana = document.getElementById("s1-2Romana");
+var divCalcTotesRomana = document.getElementById("checkbox-wrapper-2-Romana");
+//DISPLAY DE INPUT TOTES
+checkTotesRomana.addEventListener("change", function () {
+    if (checkTotesRomana.checked) {
+        totes1.style.display = "block";
+        totes1.setAttribute("required", "true");
+        totes1.setAttribute("value", "");
+        divCalcTotesRomana.style.display = "block";
+    }
+    else {
+        divCalcTotesRomana.style.display = "none";
+        totes1.style.display = "none";
+        totes1.setAttribute("value", "0");
+    }
+});
+//CALCULO TOTES
+checkCalculoTotesRomana.addEventListener("change", function () {
+    if (checkCalculoTotesRomana.checked) {
+        numeroBins1.focus();
+        numeroBins1.addEventListener("input", function () {
+            totes1.value = (Number(numeroBins1.value) * 24).toString();
+        });
+    }
+    else {
+        numeroBins1.focus();
+        numeroBins1.addEventListener("input", function () {
+            totes1.value = totes1.value = "";
+        });
+    }
+});
 xRomanaHidden.addEventListener("submit", function (evt) {
     evt.preventDefault();
     console.log("Formulario enviado");
     promedioBinsRomana.innerHTML =
         "Diferencia de peso: " + (parseInt(pesoEntrada.value) - parseInt(pesoSalida.value)) +
-            "<br>Peso de Recipientes: " + parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value) +
-            "<br/>Solo Fruta: " + (parseInt(pesoEntrada.value) - parseInt(pesoSalida.value) - parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value)) +
-            "<br/>Promedio: " + (parseInt(pesoEntrada.value) - parseInt(pesoSalida.value) - parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value)) / parseInt(numeroBins1.value);
+            "<br>Peso de Recipientes: " + (parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value) + (parseInt(totes1.value))) +
+            "<br/>Solo Fruta: " + (parseInt(pesoEntrada.value) - parseInt(pesoSalida.value) - parseInt(totes1.value) - parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value)) +
+            "<br/>Promedio: " + ((parseInt(pesoEntrada.value) - parseInt(pesoSalida.value) - (parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value)) - parseInt(totes1.value)) / (checkTotesRomana.checked ? parseInt(totes1.value) : parseInt(numeroBins1.value))).toFixed(5);
 });
+//BOTON LIMPIAR Y ESTILO
 var limpiarRomana = document.getElementById("limpiarRomana");
 limpiarRomana.addEventListener("click", function () {
     promedioBinsRomana.style.transition = "all 0.5s ease";
     promedioBinsRomana.style.opacity = "0";
     numeroBins1.value = "";
+    totes1.value = "";
     numeroBins1.focus();
     pesoEntrada.value = "";
     pesoSalida.value = "";
@@ -30,6 +65,7 @@ limpiarRomana.addEventListener("click", function () {
         promedioBinsRomana.style.opacity = "1";
     }, 510);
 });
+//--------------------OFICINA--------------------
 check1.addEventListener("change", function () {
     if (check1.checked) {
         // xOficinaHidden.classList.add("mostrar2");
@@ -59,15 +95,11 @@ var pesoBinsVacios = document.getElementById("pesoBinsVacios");
 var soloFruta = document.getElementById("soloFruta");
 var promedio = document.getElementById("promedio");
 var check2 = document.getElementById("check2");
-var checkPremium = document.getElementById("s1-14");
+var checkPremium = document.getElementById("s1-14Oficina");
 var totes2 = document.getElementById("totes2");
-var checkCalculoTotes = document.getElementById("s1-2");
-var divCalcTotes = document.querySelector(".checkbox-wrapper-2");
-// function calcularTotes(){
-//   if (checkCalculoTotes.checked && Number(numeroBins2.value) > 0|| totes2.value === ""){
-//     numeroBins2.addEventListener("input",()=>{
-//       totes2.value = (Number(numeroBins2.value)*24).toString();
-// })}}
+var checkCalculoTotes = document.getElementById("s1-2Oficina");
+var divCalcTotes = document.getElementById("checkbox-wrapper-2-Oficina");
+//DISPLAY DE INPUT TOTES
 checkPremium.addEventListener("change", function () {
     if (checkPremium.checked) {
         totes2.style.display = "block";
@@ -84,11 +116,13 @@ checkPremium.addEventListener("change", function () {
 //CALCULO TOTES
 checkCalculoTotes.addEventListener("change", function () {
     if (checkCalculoTotes.checked) {
+        numeroBins2.focus();
         numeroBins2.addEventListener("input", function () {
             totes2.value = (Number(numeroBins2.value) * 24).toString();
         });
     }
     else {
+        numeroBins2.focus();
         numeroBins2.addEventListener("input", function () {
             totes2.value = totes2.value = "";
         });

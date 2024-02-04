@@ -121,7 +121,10 @@
   overflow: hidden;
   z-index: 1;
 }
-#totes2{
+#totes1 {
+display: none;
+}
+#totes2 {
 display: none;
 }
 .checkbox-wrapper-2{
