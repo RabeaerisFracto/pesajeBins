@@ -46,9 +46,9 @@ xRomanaHidden.addEventListener("submit", function (evt) {
     console.log("Formulario enviado");
     promedioBinsRomana.innerHTML =
         "Diferencia de peso: " + (parseInt(pesoEntrada.value) - parseInt(pesoSalida.value)) +
-            "<br>Peso de Recipientes: " + (parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value) + (parseInt(totes1.value) * parseInt(tipoTote.selectedOptions[0].value))) +
-            "<br/>Solo Fruta: " + (parseInt(pesoEntrada.value) - parseInt(pesoSalida.value) - (parseInt(totes1.value) * parseInt(tipoTote.selectedOptions[0].value)) - parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value)) +
-            "<br/>Promedio: " + ((parseInt(pesoEntrada.value) - parseInt(pesoSalida.value) - (parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value)) - (parseInt(tipoTote.selectedOptions[0].value) * parseInt(totes1.value))) / (checkTotesRomana.checked ? (parseInt(totes1.value)) : parseInt(numeroBins1.value))).toFixed(5);
+            "<br>Peso de Recipientes: " + (parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value) + (parseInt(totes1.value) * parseFloat(tipoTote.selectedOptions[0].value))) +
+            "<br/>Solo Fruta neto: " + (parseInt(pesoEntrada.value) - parseInt(pesoSalida.value) - (parseInt(totes1.value) * parseFloat(tipoTote.selectedOptions[0].value)) - parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value)) +
+            "<br/>Promedio: " + ((parseInt(pesoEntrada.value) - parseInt(pesoSalida.value) - (parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value)) - (parseFloat(tipoTote.selectedOptions[0].value) * parseInt(totes1.value))) / (checkTotesRomana.checked ? (parseInt(totes1.value)) : parseInt(numeroBins1.value))).toFixed(5);
 });
 //BOTON LIMPIAR Y ESTILO
 var limpiarRomana = document.getElementById("limpiarRomana");
@@ -161,13 +161,13 @@ xOficinaHidden.addEventListener("submit", function (evt) {
             }
         } //CALCULOS
         sumaTorres = arrayPesos.reduce(function (accumulator, currentValue) { return accumulator + currentValue; }, 0); // Acaba siendo un acumulador.
-        resultado3.innerHTML = "La suma de bins da " + sumaTorres;
+        resultado3.innerHTML = "Diferencia de peso: " + sumaTorres;
         resultadoBinsVacios = (Number(tipoBins.selectedOptions[0].value) * Number(numeroBins2.value)) + (parseInt(totes2.value) * parseFloat(tipoTote.selectedOptions[0].value));
-        pesoBinsVacios.innerHTML = "El peso de los recipientes sin fruta es " + resultadoBinsVacios;
+        pesoBinsVacios.innerHTML = "Peso de recipientes: " + resultadoBinsVacios;
         resultadoSoloFruta = sumaTorres - resultadoBinsVacios;
-        soloFruta.innerHTML = "Solo la fruta pesa " + resultadoSoloFruta;
+        soloFruta.innerHTML = "Solo fruta neto: " + resultadoSoloFruta;
         kgBt = resultadoSoloFruta / (checkPremium.checked ? Number(totes2.value) : Number(numeroBins2.value));
-        promedio.innerHTML = isNaN(kgBt) ? '' : "Eso da un promedio de " + kgBt.toFixed(5) + " por bins";
+        promedio.innerHTML = isNaN(kgBt) ? '' : "Promedio: " + kgBt.toFixed(5);
     }
     actualizarValor();
     //BOTON LIMPIAR
