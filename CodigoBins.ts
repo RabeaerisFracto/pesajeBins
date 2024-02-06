@@ -1,4 +1,5 @@
 const tipoBins = document.getElementById("tipoBins") as HTMLSelectElement;
+const tipoTote = document.getElementById("tipoTote") as HTMLSelectElement;
 
 let pesoEntrada = document.getElementById("pesoEntrada") as HTMLInputElement;
 let pesoSalida = document.getElementById("pesoSalida") as HTMLInputElement;
@@ -34,7 +35,7 @@ checkCalculoTotesRomana.addEventListener("change",()=>{
   if (checkCalculoTotesRomana.checked){
     numeroBins1.focus();
     numeroBins1.addEventListener("input",()=>{
-    totes1.value = (Number(numeroBins1.value)*24).toString();
+    totes1.value = (Number(numeroBins1.value)*(tipoTote.selectedOptions[0].innerHTML === "SPIC" ? 57 : 24)).toString();
   })
 }else{
   numeroBins1.focus();
@@ -47,9 +48,9 @@ xRomanaHidden.addEventListener("submit", evt => {
   console.log("Formulario enviado");
   promedioBinsRomana.innerHTML =
     "Diferencia de peso: " +(parseInt(pesoEntrada.value) - parseInt(pesoSalida.value))+
-    "<br>Peso de Recipientes: " + (parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value)+ (parseInt(totes1.value)))+
-    "<br/>Solo Fruta: " + (parseInt(pesoEntrada.value) - parseInt(pesoSalida.value)- parseInt(totes1.value) - parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value))+
-    "<br/>Promedio: " + ((parseInt(pesoEntrada.value) - parseInt(pesoSalida.value) - (parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value)) - parseInt(totes1.value)) / (checkTotesRomana.checked ? parseInt(totes1.value) : parseInt(numeroBins1.value))).toFixed(5);
+    "<br>Peso de Recipientes: " + (parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value)+ (parseInt(totes1.value)*parseFloat(tipoTote.selectedOptions[0].value)))+
+    "<br/>Solo Fruta: " + (parseInt(pesoEntrada.value) - parseInt(pesoSalida.value)- (parseInt(totes1.value) * parseFloat(tipoTote.selectedOptions[0].value)) - parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value))+
+    "<br/>Promedio: " + ((parseInt(pesoEntrada.value) - parseInt(pesoSalida.value) - (parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value)) - (parseFloat(tipoTote.selectedOptions[0].value)*parseInt(totes1.value))) / (checkTotesRomana.checked ? (parseInt(totes1.value)) : parseInt(numeroBins1.value))).toFixed(5);
   }
 );
 //BOTON LIMPIAR Y ESTILO
@@ -129,7 +130,7 @@ checkCalculoTotes.addEventListener("change",()=>{
   if (checkCalculoTotes.checked){
     numeroBins2.focus();
     numeroBins2.addEventListener("input",()=>{
-    totes2.value = (Number(numeroBins2.value)*24).toString();
+    totes2.value = (Number(numeroBins2.value)*(tipoTote.selectedOptions[0].innerHTML === "SPIC" ? 57 : 24)).toString();
   })
 }else{
   numeroBins2.focus();
@@ -174,7 +175,7 @@ xOficinaHidden.addEventListener("submit",evt=>{
 }//CALCULOS
       sumaTorres = arrayPesos.reduce((accumulator, currentValue) => accumulator + currentValue,0,);// Acaba siendo un acumulador.
       resultado3.innerHTML = "La suma de bins da "+sumaTorres;
-      resultadoBinsVacios = (Number(tipoBins.selectedOptions[0].value)*Number(numeroBins2.value))+Number(totes2.value);
+      resultadoBinsVacios = (Number(tipoBins.selectedOptions[0].value)*Number(numeroBins2.value))+(parseInt(totes2.value)*parseFloat(tipoTote.selectedOptions[0].value));
       pesoBinsVacios.innerHTML = "El peso de los recipientes sin fruta es "+ resultadoBinsVacios;
       resultadoSoloFruta = sumaTorres-resultadoBinsVacios;
       soloFruta.innerHTML = "Solo la fruta pesa "+resultadoSoloFruta;
