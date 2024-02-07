@@ -100,18 +100,35 @@ var checkPremium = document.getElementById("s1-14Oficina");
 var totes2 = document.getElementById("totes2");
 var checkCalculoTotes = document.getElementById("s1-2Oficina");
 var divCalcTotes = document.getElementById("checkbox-wrapper-2-Oficina");
+var checkTotesVacios = document.getElementById("s1-2totesVacios");
+var inputTotesVacios = document.getElementById("inputTotesVacios");
 //DISPLAY DE INPUT TOTES
 checkPremium.addEventListener("change", function () {
     if (checkPremium.checked) {
         totes2.style.display = "block";
         totes2.setAttribute("required", "true");
         totes2.setAttribute("value", "");
-        divCalcTotes.style.display = "block";
+        divCalcTotes.style.display = "flex";
+        //////////////TOTES VACIOS
+        checkTotesVacios.addEventListener("change", function () {
+            if (checkTotesVacios.checked) {
+                inputTotesVacios.style.display = "block";
+                inputTotesVacios.style.margin = "0 0 0 10px";
+                inputTotesVacios.setAttribute("required", "true");
+                inputTotesVacios.setAttribute("value", "");
+            }
+            else {
+                inputTotesVacios.style.display = "none";
+                inputTotesVacios.setAttribute("value", "0");
+            }
+        });
     }
     else {
         divCalcTotes.style.display = "none";
         totes2.style.display = "none";
         totes2.setAttribute("value", "0");
+        checkTotesVacios.checked = false;
+        inputTotesVacios.style.display = "none";
     }
 });
 //CALCULO TOTES
@@ -162,7 +179,7 @@ xOficinaHidden.addEventListener("submit", function (evt) {
         } //CALCULOS
         sumaTorres = arrayPesos.reduce(function (accumulator, currentValue) { return accumulator + currentValue; }, 0); // Acaba siendo un acumulador.
         resultado3.innerHTML = "Diferencia de peso: " + sumaTorres;
-        resultadoBinsVacios = (Number(tipoBins.selectedOptions[0].value) * Number(numeroBins2.value)) + (parseInt(totes2.value) * parseFloat(tipoTote.selectedOptions[0].value));
+        resultadoBinsVacios = (Number(tipoBins.selectedOptions[0].value) * Number(numeroBins2.value)) + (parseInt(totes2.value) * parseFloat(tipoTote.selectedOptions[0].value) + (inputTotesVacios.value === "" ? 0 : parseInt(inputTotesVacios.value)));
         pesoBinsVacios.innerHTML = "Peso de recipientes: " + resultadoBinsVacios;
         resultadoSoloFruta = sumaTorres - resultadoBinsVacios;
         soloFruta.innerHTML = "Solo fruta neto: " + resultadoSoloFruta;
@@ -177,6 +194,7 @@ xOficinaHidden.addEventListener("submit", function (evt) {
         aImprimir.style.transition = "all 0.5s ease";
         aImprimir.style.opacity = "0";
         numeroBins2.value = "";
+        totes2.value = "";
         kgBt = 0;
         console.log("Array vaciado");
         setTimeout(function () {

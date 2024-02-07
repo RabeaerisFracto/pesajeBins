@@ -128,9 +128,17 @@ display: none;
 #totes2 {
 display: none;
 }
+#inputTotesVacios {
+display: none;
+}
 .checkbox-wrapper-2{
   display: none;
 }
+#inputTotes2 {
+display: flex;
+}
+
+
 /* Checkbox */
 
 .checkbox-wrapper-2 .ikxBAC {
