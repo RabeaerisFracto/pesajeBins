@@ -12,6 +12,8 @@ var checkTotesRomana = document.getElementById("s1-14Romana"); //x CheckPremium1
 var totes1 = document.getElementById("totes1");
 var checkCalculoTotesRomana = document.getElementById("s1-2Romana");
 var divCalcTotesRomana = document.getElementById("checkbox-wrapper-2-Romana");
+var checkTotesVaciosRomana = document.getElementById("s1-2totesVaciosRomana");
+var inputTotesVaciosRomana = document.getElementById("inputTotesVaciosRomana");
 //DISPLAY DE INPUT TOTES
 checkTotesRomana.addEventListener("change", function () {
     if (checkTotesRomana.checked) {
@@ -19,11 +21,26 @@ checkTotesRomana.addEventListener("change", function () {
         totes1.setAttribute("required", "true");
         totes1.setAttribute("value", "");
         divCalcTotesRomana.style.display = "block";
+        checkTotesVaciosRomana.addEventListener("change", function () {
+            if (checkTotesVaciosRomana.checked) {
+                inputTotesVaciosRomana.style.display = "block";
+                inputTotesVaciosRomana.style.margin = "0 0 0 10px";
+                // inputTotesVaciosRomana.setAttribute("required","true");
+                inputTotesVaciosRomana.setAttribute("value", "");
+                numeroBins1.focus();
+            }
+            else {
+                inputTotesVaciosRomana.style.display = "none";
+                inputTotesVaciosRomana.setAttribute("value", "0");
+            }
+        });
     }
     else {
         divCalcTotesRomana.style.display = "none";
         totes1.style.display = "none";
         totes1.setAttribute("value", "0");
+        checkTotesVaciosRomana.checked = false;
+        inputTotesVaciosRomana.style.display = "none";
     }
 });
 //CALCULO TOTES
@@ -44,11 +61,13 @@ checkCalculoTotesRomana.addEventListener("change", function () {
 xRomanaHidden.addEventListener("submit", function (evt) {
     evt.preventDefault();
     console.log("Formulario enviado");
+    var diferenciaPesoRomana = (parseInt(pesoEntrada.value) - parseInt(pesoSalida.value));
+    var pesoRecipientesRomana = (parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value) + (parseInt(totes1.value) * parseFloat(tipoTote.selectedOptions[0].value)) + ((inputTotesVaciosRomana.value === "" ? 0 : parseInt(inputTotesVaciosRomana.value)) * parseFloat(tipoTote.selectedOptions[0].value)));
     promedioBinsRomana.innerHTML =
-        "Diferencia de peso: " + (parseInt(pesoEntrada.value) - parseInt(pesoSalida.value)) +
-            "<br>Peso de Recipientes: " + (parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value) + (parseInt(totes1.value) * parseFloat(tipoTote.selectedOptions[0].value))) +
-            "<br/>Solo Fruta neto: " + (parseInt(pesoEntrada.value) - parseInt(pesoSalida.value) - (parseInt(totes1.value) * parseFloat(tipoTote.selectedOptions[0].value)) - parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value)) +
-            "<br/>Promedio: " + ((parseInt(pesoEntrada.value) - parseInt(pesoSalida.value) - (parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value)) - (parseFloat(tipoTote.selectedOptions[0].value) * parseInt(totes1.value))) / (checkTotesRomana.checked ? (parseInt(totes1.value)) : parseInt(numeroBins1.value))).toFixed(5);
+        "Diferencia de peso: " + diferenciaPesoRomana +
+            "<br>Peso de Recipientes: " + pesoRecipientesRomana +
+            "<br/>Solo Fruta neto: " + (diferenciaPesoRomana - pesoRecipientesRomana) +
+            "<br/>Promedio: " + ((diferenciaPesoRomana - pesoRecipientesRomana) / (checkTotesRomana.checked ? (parseInt(totes1.value)) : parseInt(numeroBins1.value))).toFixed(5);
 });
 //BOTON LIMPIAR Y ESTILO
 var limpiarRomana = document.getElementById("limpiarRomana");
@@ -114,8 +133,9 @@ checkPremium.addEventListener("change", function () {
             if (checkTotesVacios.checked) {
                 inputTotesVacios.style.display = "block";
                 inputTotesVacios.style.margin = "0 0 0 10px";
-                inputTotesVacios.setAttribute("required", "true");
+                // inputTotesVacios.setAttribute("required","true");
                 inputTotesVacios.setAttribute("value", "");
+                numeroBins2.focus();
             }
             else {
                 inputTotesVacios.style.display = "none";
@@ -195,6 +215,7 @@ xOficinaHidden.addEventListener("submit", function (evt) {
         aImprimir.style.opacity = "0";
         numeroBins2.value = "";
         totes2.value = "";
+        inputTotesVacios.value = "";
         kgBt = 0;
         console.log("Array vaciado");
         setTimeout(function () {

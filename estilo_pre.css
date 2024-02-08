@@ -15,6 +15,9 @@
   margin: 0 auto;
   display: none;
 }
+
+
+
 #xRomana{
   width: 400px;
   height: min-content;
@@ -34,15 +37,31 @@
   position: relative;
   margin: 0 auto; 
   opacity: 0;
-	transform: translateX(-500px);
-	opacity: 0;
+  transform: translateX(-450px);
 	transition: 400ms;
   overflow: hidden;
   z-index: 1;
 }
+#totes1 {
+display: none;
+}
 .mostrar1{
   transform: translateX(0px);
   opacity: 1;
+}
+#check1{
+  display: none;
+}
+#resultadoBinsRomana{
+  border: 1px dashed #bbb;
+  font-size: larger;
+}
+#inputTotesVaciosRomana{
+  display: none;
+}
+#inputTotes1{
+  display: flex;
+
 }
 /* .mostrar2{
   transform: translateX(0px);
@@ -52,6 +71,10 @@
   display: block;
   opacity: 1;
 } */
+
+
+
+
 
 .xOficinaHidden{
   display: inline-block;
@@ -74,9 +97,6 @@
   margin: 0 auto;
   height: 45px;
 }
-#check1{
-  display: none;
-}
 #check2{
   display: none;
 }
@@ -84,10 +104,9 @@
   margin: 1px;
   font-size: small;
 }
-#resultadoBinsRomana{
-  border: 1px dashed #bbb;
-  font-size: larger;
-}
+
+
+
 #aImprimir {
   opacity: 0.1;
 }
@@ -109,22 +128,9 @@
     padding-top: -50mm;
   }
 }
-.xRomanaHidden{
-  display: inline-block;
-  width: 400px;
-  height: min-content;
-  justify-content: center;
-  position: relative;
-  margin: 0 auto; 
-  opacity: 0;
-  transform: translateX(-450px);
-	transition: 400ms;
-  overflow: hidden;
-  z-index: 1;
-}
-#totes1 {
-display: none;
-}
+
+
+
 #totes2 {
 display: none;
 }

@@ -17,6 +17,10 @@ const checkTotesRomana = document.getElementById("s1-14Romana") as HTMLInputElem
 const totes1 = document.getElementById("totes1") as HTMLInputElement;
 const checkCalculoTotesRomana = document.getElementById("s1-2Romana") as HTMLInputElement;
 const divCalcTotesRomana = document.getElementById("checkbox-wrapper-2-Romana") as HTMLDivElement;
+
+const checkTotesVaciosRomana = document.getElementById("s1-2totesVaciosRomana") as HTMLInputElement;
+const inputTotesVaciosRomana = document.getElementById("inputTotesVaciosRomana") as HTMLInputElement;
+
 //DISPLAY DE INPUT TOTES
 checkTotesRomana.addEventListener("change",()=>{
   if (checkTotesRomana.checked) {
@@ -24,10 +28,25 @@ checkTotesRomana.addEventListener("change",()=>{
     totes1.setAttribute("required","true");
     totes1.setAttribute("value","");
     divCalcTotesRomana.style.display = "block";
+    checkTotesVaciosRomana.addEventListener("change",()=>{
+      if (checkTotesVaciosRomana.checked) {
+        inputTotesVaciosRomana.style.display = "block";
+        inputTotesVaciosRomana.style.margin = "0 0 0 10px";
+        // inputTotesVaciosRomana.setAttribute("required","true");
+        inputTotesVaciosRomana.setAttribute("value","");
+        numeroBins1.focus();
+        
+      }else{
+        inputTotesVaciosRomana.style.display = "none";
+        inputTotesVaciosRomana.setAttribute("value","0")
+      }
+    })
   }else{
     divCalcTotesRomana.style.display = "none";
     totes1.style.display = "none";
-    totes1.setAttribute("value","0")
+    totes1.setAttribute("value","0");
+    checkTotesVaciosRomana.checked = false;
+    inputTotesVaciosRomana.style.display = "none";
   }
 })
 //CALCULO TOTES
@@ -46,11 +65,13 @@ checkCalculoTotesRomana.addEventListener("change",()=>{
 xRomanaHidden.addEventListener("submit", evt => {
   evt.preventDefault();
   console.log("Formulario enviado");
+  let diferenciaPesoRomana = (parseInt(pesoEntrada.value) - parseInt(pesoSalida.value));
+  let pesoRecipientesRomana = (parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value)+ (parseInt(totes1.value)*parseFloat(tipoTote.selectedOptions[0].value))+((inputTotesVaciosRomana.value === "" ? 0 : parseInt(inputTotesVaciosRomana.value))*parseFloat(tipoTote.selectedOptions[0].value)))
   promedioBinsRomana.innerHTML =
-    "Diferencia de peso: " +(parseInt(pesoEntrada.value) - parseInt(pesoSalida.value))+
-    "<br>Peso de Recipientes: " + (parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value)+ (parseInt(totes1.value)*parseFloat(tipoTote.selectedOptions[0].value)))+
-    "<br/>Solo Fruta neto: " + (parseInt(pesoEntrada.value) - parseInt(pesoSalida.value)- (parseInt(totes1.value) * parseFloat(tipoTote.selectedOptions[0].value)) - parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value))+
-    "<br/>Promedio: " + ((parseInt(pesoEntrada.value) - parseInt(pesoSalida.value) - (parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value)) - (parseFloat(tipoTote.selectedOptions[0].value)*parseInt(totes1.value))) / (checkTotesRomana.checked ? (parseInt(totes1.value)) : parseInt(numeroBins1.value))).toFixed(5);
+    "Diferencia de peso: " + diferenciaPesoRomana +
+    "<br>Peso de Recipientes: " + pesoRecipientesRomana +
+    "<br/>Solo Fruta neto: " + (diferenciaPesoRomana - pesoRecipientesRomana)+
+    "<br/>Promedio: " + ((diferenciaPesoRomana - pesoRecipientesRomana) / (checkTotesRomana.checked ? (parseInt(totes1.value)) : parseInt(numeroBins1.value))).toFixed(5);
   }
 );
 //BOTON LIMPIAR Y ESTILO
@@ -129,8 +150,10 @@ checkPremium.addEventListener("change",()=>{
       if (checkTotesVacios.checked) {
         inputTotesVacios.style.display = "block";
         inputTotesVacios.style.margin = "0 0 0 10px";
-        inputTotesVacios.setAttribute("required","true");
+        // inputTotesVacios.setAttribute("required","true");
         inputTotesVacios.setAttribute("value","");
+        numeroBins2.focus();
+        
       }else{
         inputTotesVacios.style.display = "none";
         inputTotesVacios.setAttribute("value","0")
