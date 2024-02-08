@@ -30,12 +30,13 @@ checkTotesRomana.addEventListener("change", function () {
                 numeroBins1.focus();
             }
             else {
+                inputTotesVaciosRomana.value = "";
                 inputTotesVaciosRomana.style.display = "none";
-                inputTotesVaciosRomana.setAttribute("value", "0");
             }
         });
     }
     else {
+        inputTotesVaciosRomana.value = "";
         divCalcTotesRomana.style.display = "none";
         totes1.style.display = "none";
         totes1.setAttribute("value", "0");
@@ -79,6 +80,7 @@ limpiarRomana.addEventListener("click", function () {
     numeroBins1.focus();
     pesoEntrada.value = "";
     pesoSalida.value = "";
+    inputTotesVaciosRomana.value = "";
     console.log("Romana limpiada");
     setTimeout(function () {
         promedioBinsRomana.innerHTML = "";
@@ -126,7 +128,7 @@ checkPremium.addEventListener("change", function () {
     if (checkPremium.checked) {
         totes2.style.display = "block";
         totes2.setAttribute("required", "true");
-        totes2.setAttribute("value", "");
+        totes2.value = "";
         divCalcTotes.style.display = "flex";
         //////////////TOTES VACIOS
         checkTotesVacios.addEventListener("change", function () {
@@ -134,19 +136,19 @@ checkPremium.addEventListener("change", function () {
                 inputTotesVacios.style.display = "block";
                 inputTotesVacios.style.margin = "0 0 0 10px";
                 // inputTotesVacios.setAttribute("required","true");
-                inputTotesVacios.setAttribute("value", "");
+                inputTotesVacios.value = "";
                 numeroBins2.focus();
             }
             else {
                 inputTotesVacios.style.display = "none";
-                inputTotesVacios.setAttribute("value", "0");
+                inputTotesVacios.value = "";
             }
         });
     }
     else {
         divCalcTotes.style.display = "none";
         totes2.style.display = "none";
-        totes2.setAttribute("value", "0");
+        totes2.value = "";
         checkTotesVacios.checked = false;
         inputTotesVacios.style.display = "none";
     }
@@ -161,9 +163,7 @@ checkCalculoTotes.addEventListener("change", function () {
     }
     else {
         numeroBins2.focus();
-        numeroBins2.addEventListener("input", function () {
-            totes2.value = totes2.value = "";
-        });
+        numeroBins2.addEventListener("input", function () { totes2.value = ""; });
     }
 });
 var sumaTorres = 0; //se inicializa en 0 para declarar antes del uso (del loop). Abajo se usa como acumulador.
@@ -199,7 +199,7 @@ xOficinaHidden.addEventListener("submit", function (evt) {
         } //CALCULOS
         sumaTorres = arrayPesos.reduce(function (accumulator, currentValue) { return accumulator + currentValue; }, 0); // Acaba siendo un acumulador.
         resultado3.innerHTML = "Diferencia de peso: " + sumaTorres;
-        resultadoBinsVacios = (Number(tipoBins.selectedOptions[0].value) * Number(numeroBins2.value)) + (parseInt(totes2.value) * parseFloat(tipoTote.selectedOptions[0].value) + (inputTotesVacios.value === "" ? 0 : parseInt(inputTotesVacios.value)));
+        resultadoBinsVacios = (Number(tipoBins.selectedOptions[0].value) * Number(numeroBins2.value)) + (parseInt(totes2.value) * parseFloat(tipoTote.selectedOptions[0].value) + (inputTotesVacios.value === "" ? 0 : (parseInt(inputTotesVacios.value) * parseFloat(tipoTote.selectedOptions[0].value))));
         pesoBinsVacios.innerHTML = "Peso de recipientes: " + resultadoBinsVacios;
         resultadoSoloFruta = sumaTorres - resultadoBinsVacios;
         soloFruta.innerHTML = "Solo fruta neto: " + resultadoSoloFruta;
