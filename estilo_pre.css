@@ -104,6 +104,15 @@ display: none;
   margin: 1px;
   font-size: small;
 }
+#inputBins2{
+  display: flex;
+}
+#binsTotales2{
+  margin: 0 0 0 10px;
+}
+#promedioTotalOficina{
+  display: none;
+}
 
 
 

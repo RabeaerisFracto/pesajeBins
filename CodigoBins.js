@@ -116,6 +116,8 @@ var numeroBins2 = document.getElementById("numeroBins2");
 var pesoBinsVacios = document.getElementById("pesoBinsVacios");
 var soloFruta = document.getElementById("soloFruta");
 var promedio = document.getElementById("promedio");
+var promedioTotalOficina = document.getElementById("promedioTotalOficina");
+var binsTotales2 = document.getElementById("binsTotales2");
 var check2 = document.getElementById("check2");
 var checkPremium = document.getElementById("s1-14Oficina");
 var totes2 = document.getElementById("totes2");
@@ -196,7 +198,8 @@ xOficinaHidden.addEventListener("submit", function (evt) {
                 resultadoSoloFruta = 0;
                 kgBt = 0;
             }
-        } //CALCULOS
+        }
+        //CALCULOS
         sumaTorres = arrayPesos.reduce(function (accumulator, currentValue) { return accumulator + currentValue; }, 0); // Acaba siendo un acumulador.
         resultado3.innerHTML = "Diferencia de peso: " + sumaTorres;
         resultadoBinsVacios = (Number(tipoBins.selectedOptions[0].value) * Number(numeroBins2.value)) + (parseInt(totes2.value) * parseFloat(tipoTote.selectedOptions[0].value) + (inputTotesVacios.value === "" ? 0 : (parseInt(inputTotesVacios.value) * parseFloat(tipoTote.selectedOptions[0].value))));
@@ -205,8 +208,15 @@ xOficinaHidden.addEventListener("submit", function (evt) {
         soloFruta.innerHTML = "Solo fruta neto: " + resultadoSoloFruta;
         kgBt = resultadoSoloFruta / (checkPremium.checked ? Number(totes2.value) : Number(numeroBins2.value));
         promedio.innerHTML = isNaN(kgBt) ? '' : "Promedio: " + kgBt.toFixed(5);
+        if (binsTotales2.value === "") {
+            promedioTotalOficina.style.display = "none";
+        }
+        else {
+            promedioTotalOficina.style.display = "block";
+            promedioTotalOficina.innerHTML = "Promedio total: " + (kgBt * Number(binsTotales2.value)).toFixed(5);
+        }
+        actualizarValor();
     }
-    actualizarValor();
     //BOTON LIMPIAR
     var limpiarTodo = document.getElementById("limpiarTodo");
     limpiarTodo.addEventListener("click", function () {

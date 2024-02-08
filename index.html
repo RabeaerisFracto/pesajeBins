@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <head>
+  <meta lang="es">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zote</title>
@@ -14,7 +15,7 @@
 </head>
 <body>
   <div id="divTipoBins">
-    <label>Tipo Tote</label>
+    <label for="tipoTote">Tipo Tote</label>
     <select id="tipoBins">
       <option value="44"> BIP </option>
       <option value="66"> BIM </option>
@@ -40,8 +41,8 @@
         <label for="s1-2totesVaciosRomana">&nbsp; Totes Vacios</label>
       </div>
       <div id="inputTotes1">
-      <input type="number" placeholder="Totes" id="totes1" value="">
-      <input type="number" placeholder="Totes vacios" id="inputTotesVaciosRomana" value="">
+      <input type="number" placeholder="Totes" id="totes1" value="0">
+      <input type="number" placeholder="Totes vacios" id="inputTotesVaciosRomana" value="0">
     </div>
       <input type="number" placeholder="Cantidad de Bins" id="numeroBins1" value="" required><br>
       <input type="number" placeholder="Peso Entrada" id="pesoEntrada" value="" required><br>
@@ -67,10 +68,13 @@
         <label for="s1-2totesVacios">&nbsp; Totes Vacios</label>
       </div>
       <div id="inputTotes2">
-      <input type="number" placeholder="Totes" id="totes2" value="">
-      <input type="number" placeholder="Totes vacios" id="inputTotesVacios" value="">
+        <input type="number" placeholder="Totes" id="totes2" value="0">
+        <input type="number" placeholder="Totes vacios" id="inputTotesVacios" value="0">
       </div>
-      <input type="number" placeholder="Cantidad de Bins" id="numeroBins2" value="" required>
+      <div id="inputBins2">
+        <input type="number" placeholder="Cuantos Bins" id="numeroBins2" value="" required>
+        <input type="number" placeholder="Bins Totales" id="binsTotales2" value="">
+      </div>
       <input type="number" placeholder="Peso Torre" id="pesoTorre" value="" required><br>
       <input type="submit" id="submit" value="Calcular"><br>
       <input  type="button" id="limpiarTodo" value="Limpiar Todo"></input>
@@ -80,6 +84,7 @@
         <div id="soloFruta"></div>
         <div id="promedio"></div>
         <div id="resultado2"></div>
+        <div id="promedioTotalOficina"></div>
       </div>
     </form>
 
