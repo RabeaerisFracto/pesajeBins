@@ -26,7 +26,7 @@ checkTotesRomana.addEventListener("change",()=>{
   if (checkTotesRomana.checked) {
     totes1.style.display = "block";
     totes1.setAttribute("required","true");
-    totes1.setAttribute("value","");
+    totes1.value = "";
     divCalcTotesRomana.style.display = "block";
     checkTotesVaciosRomana.addEventListener("change",()=>{
       if (checkTotesVaciosRomana.checked) {
@@ -82,7 +82,7 @@ limpiarRomana.addEventListener("click",()=>{
   promedioBinsRomana.style.transition = "all 0.5s ease";
   promedioBinsRomana.style.opacity = "0";
   numeroBins1.value = "";
-  totes1.value = "";
+  totes1.value = (checkTotesRomana.checked ? "" : "0");
   numeroBins1.focus();
   pesoEntrada.value = "";
   pesoSalida.value = "";
@@ -129,7 +129,7 @@ let pesoBinsVacios = document.getElementById("pesoBinsVacios") as HTMLDivElement
 let soloFruta = document.getElementById("soloFruta") as HTMLDivElement;
 let promedio = document.getElementById("promedio") as HTMLDivElement;
 let promedioTotalOficina = document.getElementById("promedioTotalOficina") as HTMLDivElement;
-let binsTotales2 = document.getElementById("binsTotales2") as HTMLInputElement;
+let recipientesTotales2 = document.getElementById("recipientesTotales2") as HTMLInputElement;
 const check2 = document.getElementById("check2") as HTMLInputElement;
 
 
@@ -197,7 +197,7 @@ xOficinaHidden.addEventListener("submit",evt=>{
   aImprimir.style.opacity = "1";
 //PESO DE TORRES EN VIEWPORT
   let nuevoPeso = document.createElement("div");
-  nuevoPeso.innerHTML = parseInt(pesoTorre.value).toString();
+  nuevoPeso.innerHTML = parseInt(pesoTorre.value).toString()+" +  ";
   resultado2.appendChild(nuevoPeso);
   pesoTorre.value = "";
   nuevoPeso.addEventListener("dblclick",()=>{
@@ -227,23 +227,24 @@ xOficinaHidden.addEventListener("submit",evt=>{
       soloFruta.innerHTML = "Solo fruta neto: "+resultadoSoloFruta;
       kgBt = resultadoSoloFruta/(checkPremium.checked ? Number(totes2.value) : Number(numeroBins2.value));
       promedio.innerHTML = isNaN(kgBt) ? '' : "Promedio: "+kgBt.toFixed(5);
-      if (binsTotales2.value === "") {
+      if (recipientesTotales2.value === "") {
         promedioTotalOficina.style.display = "none";
     }else{
       promedioTotalOficina.style.display = "block";
-      promedioTotalOficina.innerHTML = "Promedio total: "+(kgBt*Number(binsTotales2.value)).toFixed(5);
-  }
+      promedioTotalOficina.innerHTML = "Promedio total: "+(kgBt*Number(recipientesTotales2.value)).toFixed(5);
+  }}
     actualizarValor();
-  }
-//BOTON LIMPIAR
+  
+//BOTON LIMPIAR (transformar a funcion??)
   const limpiarTodo = document.getElementById("limpiarTodo") as HTMLButtonElement;
   limpiarTodo.addEventListener("click",()=>{
     numeroBins2.focus();
     aImprimir.style.transition = "all 0.5s ease";
     aImprimir.style.opacity = "0";
     numeroBins2.value = "";
-    totes2.value = "";
+    totes2.value = (checkPremium.checked ? "" : "0"); //Asi se evita NaN despues de limpieza
     inputTotesVacios.value = "";
+    recipientesTotales2.value = "";
     kgBt=0;
     console.log("Array vaciado");
     setTimeout(() => {

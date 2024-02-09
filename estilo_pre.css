@@ -104,10 +104,13 @@ display: none;
   margin: 1px;
   font-size: small;
 }
+#resultado2{
+  display: flex;
+}
 #inputBins2{
   display: flex;
 }
-#binsTotales2{
+#recipientesTotales2{
   margin: 0 0 0 10px;
 }
 #promedioTotalOficina{

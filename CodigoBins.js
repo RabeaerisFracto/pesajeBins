@@ -19,7 +19,7 @@ checkTotesRomana.addEventListener("change", function () {
     if (checkTotesRomana.checked) {
         totes1.style.display = "block";
         totes1.setAttribute("required", "true");
-        totes1.setAttribute("value", "");
+        totes1.value = "";
         divCalcTotesRomana.style.display = "block";
         checkTotesVaciosRomana.addEventListener("change", function () {
             if (checkTotesVaciosRomana.checked) {
@@ -76,7 +76,7 @@ limpiarRomana.addEventListener("click", function () {
     promedioBinsRomana.style.transition = "all 0.5s ease";
     promedioBinsRomana.style.opacity = "0";
     numeroBins1.value = "";
-    totes1.value = "";
+    totes1.value = (checkTotesRomana.checked ? "" : "0");
     numeroBins1.focus();
     pesoEntrada.value = "";
     pesoSalida.value = "";
@@ -117,7 +117,7 @@ var pesoBinsVacios = document.getElementById("pesoBinsVacios");
 var soloFruta = document.getElementById("soloFruta");
 var promedio = document.getElementById("promedio");
 var promedioTotalOficina = document.getElementById("promedioTotalOficina");
-var binsTotales2 = document.getElementById("binsTotales2");
+var recipientesTotales2 = document.getElementById("recipientesTotales2");
 var check2 = document.getElementById("check2");
 var checkPremium = document.getElementById("s1-14Oficina");
 var totes2 = document.getElementById("totes2");
@@ -179,7 +179,7 @@ xOficinaHidden.addEventListener("submit", function (evt) {
     aImprimir.style.opacity = "1";
     //PESO DE TORRES EN VIEWPORT
     var nuevoPeso = document.createElement("div");
-    nuevoPeso.innerHTML = parseInt(pesoTorre.value).toString();
+    nuevoPeso.innerHTML = parseInt(pesoTorre.value).toString() + " +  ";
     resultado2.appendChild(nuevoPeso);
     pesoTorre.value = "";
     nuevoPeso.addEventListener("dblclick", function () {
@@ -208,24 +208,25 @@ xOficinaHidden.addEventListener("submit", function (evt) {
         soloFruta.innerHTML = "Solo fruta neto: " + resultadoSoloFruta;
         kgBt = resultadoSoloFruta / (checkPremium.checked ? Number(totes2.value) : Number(numeroBins2.value));
         promedio.innerHTML = isNaN(kgBt) ? '' : "Promedio: " + kgBt.toFixed(5);
-        if (binsTotales2.value === "") {
+        if (recipientesTotales2.value === "") {
             promedioTotalOficina.style.display = "none";
         }
         else {
             promedioTotalOficina.style.display = "block";
-            promedioTotalOficina.innerHTML = "Promedio total: " + (kgBt * Number(binsTotales2.value)).toFixed(5);
+            promedioTotalOficina.innerHTML = "Promedio total: " + (kgBt * Number(recipientesTotales2.value)).toFixed(5);
         }
-        actualizarValor();
     }
-    //BOTON LIMPIAR
+    actualizarValor();
+    //BOTON LIMPIAR (transformar a funcion??)
     var limpiarTodo = document.getElementById("limpiarTodo");
     limpiarTodo.addEventListener("click", function () {
         numeroBins2.focus();
         aImprimir.style.transition = "all 0.5s ease";
         aImprimir.style.opacity = "0";
         numeroBins2.value = "";
-        totes2.value = "";
+        totes2.value = (checkPremium.checked ? "" : "0"); //Asi se evita NaN despues de limpieza
         inputTotesVacios.value = "";
+        recipientesTotales2.value = "";
         kgBt = 0;
         console.log("Array vaciado");
         setTimeout(function () {
