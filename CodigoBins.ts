@@ -21,6 +21,8 @@ const divCalcTotesRomana = document.getElementById("checkbox-wrapper-2-Romana") 
 const checkTotesVaciosRomana = document.getElementById("s1-2totesVaciosRomana") as HTMLInputElement;
 const inputTotesVaciosRomana = document.getElementById("inputTotesVaciosRomana") as HTMLInputElement;
 
+let delta1 = 0;
+
 //DISPLAY DE INPUT TOTES
 checkTotesRomana.addEventListener("change",()=>{
   if (checkTotesRomana.checked) {
@@ -71,11 +73,13 @@ xRomanaHidden.addEventListener("submit", evt => {
   let pesoRecipientesRomanaBins = (parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value));
   let pesoRecipientesRomanaTotes = (parseInt(totes1.value)*parseFloat(tipoTote.selectedOptions[0].value))+((inputTotesVaciosRomana.value === "" ? 0 : parseInt(inputTotesVaciosRomana.value))*parseFloat(tipoTote.selectedOptions[0].value));
   let pesoRecipientesRomana = pesoRecipientesRomanaBins+pesoRecipientesRomanaTotes;
+  delta1 = (diferenciaPesoRomana - pesoRecipientesRomana);
+  let deltaRomana = delta1 - delta2;
   promedioBinsRomana.innerHTML =
     "Diferencia de peso: " + diferenciaPesoRomana +
     "<br>Peso de Recipientes: " + pesoRecipientesRomana + (checkTotesRomana.checked ? "   ("+pesoRecipientesRomanaBins+" + "+pesoRecipientesRomanaTotes+")": "")+
-    "<br/>Solo Fruta neto: " + (diferenciaPesoRomana - pesoRecipientesRomana)+
-    "<br/>Promedio: " + ((diferenciaPesoRomana - pesoRecipientesRomana) / (checkTotesRomana.checked ? (parseInt(totes1.value)) : parseInt(numeroBins1.value))).toFixed(5);
+    "<br/>Solo Fruta neto: " + (delta1) + (delta1 == deltaRomana ? "" : "  <span style='color: " + (deltaRomana < 0 ? "red" : "green")+ ";'>("+ (deltaRomana < 0 ? "" : "+") +Math.round(deltaRomana)+")") + "</span>" +
+    "<br/>Promedio: " + (delta1 / (checkTotesRomana.checked ? (parseInt(totes1.value)) : parseInt(numeroBins1.value))).toFixed(5);
   }
 );
 //BOTON LIMPIAR Y ESTILO
@@ -143,7 +147,8 @@ const divCalcTotes = document.getElementById("checkbox-wrapper-2-Oficina") as HT
 const checkTotesVacios = document.getElementById("s1-2totesVacios") as HTMLInputElement;
 const inputTotesVacios = document.getElementById("inputTotesVacios") as HTMLInputElement;
 
-
+let delta2 = 0;
+let deltaOficina = 0;
 
 //DISPLAY DE INPUT TOTES
 checkPremium.addEventListener("change",()=>{
@@ -232,11 +237,13 @@ xOficinaHidden.addEventListener("submit",evt=>{
       soloFruta.innerHTML = "Solo fruta neto: "+resultadoSoloFruta;
       kgBt = resultadoSoloFruta/(checkPremium.checked ? Number(totes2.value) : Number(numeroBins2.value));
       promedio.innerHTML = isNaN(kgBt) ? '' : "Promedio: "+kgBt.toFixed(5);
+      delta2 = Number((kgBt*Number(recipientesTotales2.value)).toFixed(5));
+      deltaOficina = (Number(delta2)-delta1);
       if (recipientesTotales2.value === "") {
         promedioTotalOficina.style.display = "none";
     }else{
       promedioTotalOficina.style.display = "block";
-      promedioTotalOficina.innerHTML = "Promedio total: "+(kgBt*Number(recipientesTotales2.value)).toFixed(5);
+      promedioTotalOficina.innerHTML = "Promedio total: "+(delta2) + (delta2 == deltaOficina ? "" : "  <span style='color: " + (deltaOficina < 0 ? "red" : "green")+ ";'>("+ Math.round(deltaOficina)+")") + "</span>";
   }}
     actualizarValor();
   

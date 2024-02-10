@@ -14,6 +14,7 @@ var checkCalculoTotesRomana = document.getElementById("s1-2Romana");
 var divCalcTotesRomana = document.getElementById("checkbox-wrapper-2-Romana");
 var checkTotesVaciosRomana = document.getElementById("s1-2totesVaciosRomana");
 var inputTotesVaciosRomana = document.getElementById("inputTotesVaciosRomana");
+var delta1 = 0;
 //DISPLAY DE INPUT TOTES
 checkTotesRomana.addEventListener("change", function () {
     if (checkTotesRomana.checked) {
@@ -66,11 +67,13 @@ xRomanaHidden.addEventListener("submit", function (evt) {
     var pesoRecipientesRomanaBins = (parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value));
     var pesoRecipientesRomanaTotes = (parseInt(totes1.value) * parseFloat(tipoTote.selectedOptions[0].value)) + ((inputTotesVaciosRomana.value === "" ? 0 : parseInt(inputTotesVaciosRomana.value)) * parseFloat(tipoTote.selectedOptions[0].value));
     var pesoRecipientesRomana = pesoRecipientesRomanaBins + pesoRecipientesRomanaTotes;
+    delta1 = (diferenciaPesoRomana - pesoRecipientesRomana);
+    var deltaRomana = delta1 - delta2;
     promedioBinsRomana.innerHTML =
         "Diferencia de peso: " + diferenciaPesoRomana +
             "<br>Peso de Recipientes: " + pesoRecipientesRomana + (checkTotesRomana.checked ? "   (" + pesoRecipientesRomanaBins + " + " + pesoRecipientesRomanaTotes + ")" : "") +
-            "<br/>Solo Fruta neto: " + (diferenciaPesoRomana - pesoRecipientesRomana) +
-            "<br/>Promedio: " + ((diferenciaPesoRomana - pesoRecipientesRomana) / (checkTotesRomana.checked ? (parseInt(totes1.value)) : parseInt(numeroBins1.value))).toFixed(5);
+            "<br/>Solo Fruta neto: " + (delta1) + (delta1 == deltaRomana ? "" : "  <span style='color: " + (deltaRomana < 0 ? "red" : "green") + ";'>(" + (deltaRomana < 0 ? "" : "+") + Math.round(deltaRomana) + ")") + "</span>" +
+            "<br/>Promedio: " + (delta1 / (checkTotesRomana.checked ? (parseInt(totes1.value)) : parseInt(numeroBins1.value))).toFixed(5);
 });
 //BOTON LIMPIAR Y ESTILO
 var limpiarRomana = document.getElementById("limpiarRomana");
@@ -127,6 +130,8 @@ var checkCalculoTotes = document.getElementById("s1-2Oficina");
 var divCalcTotes = document.getElementById("checkbox-wrapper-2-Oficina");
 var checkTotesVacios = document.getElementById("s1-2totesVacios");
 var inputTotesVacios = document.getElementById("inputTotesVacios");
+var delta2 = 0;
+var deltaOficina = 0;
 //DISPLAY DE INPUT TOTES
 checkPremium.addEventListener("change", function () {
     if (checkPremium.checked) {
@@ -213,12 +218,14 @@ xOficinaHidden.addEventListener("submit", function (evt) {
         soloFruta.innerHTML = "Solo fruta neto: " + resultadoSoloFruta;
         kgBt = resultadoSoloFruta / (checkPremium.checked ? Number(totes2.value) : Number(numeroBins2.value));
         promedio.innerHTML = isNaN(kgBt) ? '' : "Promedio: " + kgBt.toFixed(5);
+        delta2 = Number((kgBt * Number(recipientesTotales2.value)).toFixed(5));
+        deltaOficina = (Number(delta2) - delta1);
         if (recipientesTotales2.value === "") {
             promedioTotalOficina.style.display = "none";
         }
         else {
             promedioTotalOficina.style.display = "block";
-            promedioTotalOficina.innerHTML = "Promedio total: " + (kgBt * Number(recipientesTotales2.value)).toFixed(5);
+            promedioTotalOficina.innerHTML = "Promedio total: " + (delta2) + (delta2 == deltaOficina ? "" : "  <span style='color: " + (deltaOficina < 0 ? "red" : "green") + ";'>(" + Math.round(deltaOficina) + ")") + "</span>";
         }
     }
     actualizarValor();
