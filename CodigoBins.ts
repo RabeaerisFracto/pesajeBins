@@ -45,7 +45,7 @@ checkTotesRomana.addEventListener("change",()=>{
     inputTotesVaciosRomana.value = "";
     divCalcTotesRomana.style.display = "none";
     totes1.style.display = "none";
-    totes1.setAttribute("value","0");
+    totes1.value = "0";
     checkTotesVaciosRomana.checked = false;
     inputTotesVaciosRomana.style.display = "none";
   }
@@ -68,10 +68,12 @@ xRomanaHidden.addEventListener("submit", evt => {
   evt.preventDefault();
   console.log("Formulario enviado");
   let diferenciaPesoRomana = (parseInt(pesoEntrada.value) - parseInt(pesoSalida.value));
-  let pesoRecipientesRomana = (parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value)+ (parseInt(totes1.value)*parseFloat(tipoTote.selectedOptions[0].value))+((inputTotesVaciosRomana.value === "" ? 0 : parseInt(inputTotesVaciosRomana.value))*parseFloat(tipoTote.selectedOptions[0].value)))
+  let pesoRecipientesRomanaBins = (parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value));
+  let pesoRecipientesRomanaTotes = (parseInt(totes1.value)*parseFloat(tipoTote.selectedOptions[0].value))+((inputTotesVaciosRomana.value === "" ? 0 : parseInt(inputTotesVaciosRomana.value))*parseFloat(tipoTote.selectedOptions[0].value));
+  let pesoRecipientesRomana = pesoRecipientesRomanaBins+pesoRecipientesRomanaTotes;
   promedioBinsRomana.innerHTML =
     "Diferencia de peso: " + diferenciaPesoRomana +
-    "<br>Peso de Recipientes: " + pesoRecipientesRomana +
+    "<br>Peso de Recipientes: " + pesoRecipientesRomana + (checkTotesRomana.checked ? "   ("+pesoRecipientesRomanaBins+" + "+pesoRecipientesRomanaTotes+")": "")+
     "<br/>Solo Fruta neto: " + (diferenciaPesoRomana - pesoRecipientesRomana)+
     "<br/>Promedio: " + ((diferenciaPesoRomana - pesoRecipientesRomana) / (checkTotesRomana.checked ? (parseInt(totes1.value)) : parseInt(numeroBins1.value))).toFixed(5);
   }
@@ -167,7 +169,7 @@ checkPremium.addEventListener("change",()=>{
   }else{
     divCalcTotes.style.display = "none";
     totes2.style.display = "none";
-    totes2.value = "";
+    totes2.value = "0";
     checkTotesVacios.checked = false;
     inputTotesVacios.style.display = "none";
   }
@@ -198,6 +200,7 @@ xOficinaHidden.addEventListener("submit",evt=>{
 //PESO DE TORRES EN VIEWPORT
   let nuevoPeso = document.createElement("div");
   nuevoPeso.innerHTML = parseInt(pesoTorre.value).toString()+" +  ";
+  nuevoPeso.classList.add("nuevoPeso");
   resultado2.appendChild(nuevoPeso);
   pesoTorre.value = "";
   nuevoPeso.addEventListener("dblclick",()=>{
@@ -218,11 +221,13 @@ xOficinaHidden.addEventListener("submit",evt=>{
         kgBt=0;
       }
 }
-//CALCULOS
+//CALCULOS (CAMBIAR NOMBRE DE pesoBinsVacios PARA MEJOR ENTENDIMIENTO)
       sumaTorres = arrayPesos.reduce((accumulator, currentValue) => accumulator + currentValue,0,);// Acaba siendo un acumulador.
       resultado3.innerHTML = "Diferencia de peso: "+sumaTorres;
-      resultadoBinsVacios = (Number(tipoBins.selectedOptions[0].value)*Number(numeroBins2.value))+(parseInt(totes2.value)*parseFloat(tipoTote.selectedOptions[0].value)+(inputTotesVacios.value === "" ? 0 : (parseInt(inputTotesVacios.value)*parseFloat(tipoTote.selectedOptions[0].value))));
-      pesoBinsVacios.innerHTML = "Peso de recipientes: "+ resultadoBinsVacios;
+      let pesoRecipientesOficinaBins = (Number(tipoBins.selectedOptions[0].value)*Number(numeroBins2.value));
+      let pesoRecipientesOficinaTotes = (parseInt(totes2.value)*parseFloat(tipoTote.selectedOptions[0].value)+(inputTotesVacios.value === "" ? 0 : (parseInt(inputTotesVacios.value)*parseFloat(tipoTote.selectedOptions[0].value))));
+      resultadoBinsVacios = pesoRecipientesOficinaBins+pesoRecipientesOficinaTotes;
+      pesoBinsVacios.innerHTML = "Peso de recipientes: "+ resultadoBinsVacios+ (checkPremium.checked ? "   ("+pesoRecipientesOficinaBins+" + "+pesoRecipientesOficinaTotes+")": "");
       resultadoSoloFruta = sumaTorres-resultadoBinsVacios;
       soloFruta.innerHTML = "Solo fruta neto: "+resultadoSoloFruta;
       kgBt = resultadoSoloFruta/(checkPremium.checked ? Number(totes2.value) : Number(numeroBins2.value));
@@ -241,6 +246,7 @@ xOficinaHidden.addEventListener("submit",evt=>{
     numeroBins2.focus();
     aImprimir.style.transition = "all 0.5s ease";
     aImprimir.style.opacity = "0";
+    pesoTorre.placeholder = "Peso torre";
     numeroBins2.value = "";
     totes2.value = (checkPremium.checked ? "" : "0"); //Asi se evita NaN despues de limpieza
     inputTotesVacios.value = "";
@@ -259,6 +265,13 @@ xOficinaHidden.addEventListener("submit",evt=>{
       actualizarValor();
     }, 510);
 })
+})
+
+//CONTEO TORRES
+numeroBins2.addEventListener("input",()=>{
+  if (numeroBins2.value !== "") {
+    pesoTorre.placeholder = (Math.floor(parseInt(numeroBins2.value)/3) < 1 ? "" : Math.floor(parseInt(numeroBins2.value)/3) +" torres completas")+ (Number(numeroBins2.value)%3 === 0 ? "" : "   1 torre de "+parseInt(numeroBins2.value)%3+" bins");
+  }else{ pesoTorre.placeholder = "Peso torre";}
 })
 
 //ESTILO xImprimir
