@@ -1,5 +1,10 @@
+//----------------------TIPO DE RECIPIENTES----------------------------------
 const tipoBins = document.getElementById("tipoBins") as HTMLSelectElement;
 const tipoTote = document.getElementById("tipoTote") as HTMLSelectElement;
+
+
+//-----------------------------ROMANA----------------------------------
+
 
 let pesoEntrada = document.getElementById("pesoEntrada") as HTMLInputElement;
 let pesoSalida = document.getElementById("pesoSalida") as HTMLInputElement;
@@ -13,7 +18,7 @@ const check1 = document.getElementById("check1") as HTMLInputElement;
 const xRomana = document.getElementById("xRomana") as HTMLElement;
 const xRomanaHidden = document.querySelector(".xRomanaHidden") as HTMLElement;
 
-const checkTotesRomana = document.getElementById("s1-14Romana") as HTMLInputElement;//x CheckPremium1
+const checkTotesRomana = document.getElementById("s1-14Romana") as HTMLInputElement;
 const totes1 = document.getElementById("totes1") as HTMLInputElement;
 const checkCalculoTotesRomana = document.getElementById("s1-2Romana") as HTMLInputElement;
 const divCalcTotesRomana = document.getElementById("checkbox-wrapper-2-Romana") as HTMLDivElement;
@@ -100,8 +105,7 @@ limpiarRomana.addEventListener("click",()=>{
   }, 510);
 })
 
-
-//--------------------OFICINA--------------------
+//DISPLAY DE xRomana
 check1.addEventListener("change",()=>{
   if (check1.checked) {
     // xOficinaHidden.classList.add("mostrar2");
@@ -120,6 +124,7 @@ check1.addEventListener("change",()=>{
 })
 
 
+//-----------------------------OFICINA----------------------------------
 
 const submit = document.getElementById("submit") as HTMLButtonElement;
 let xOficinaHidden = document.querySelector(".xOficinaHidden") as HTMLElement;
@@ -131,7 +136,7 @@ let resultado2 = document.getElementById("resultado2") as  HTMLDivElement;
 let resultado3 = document.getElementById("resultado3") as HTMLDivElement;
 let numeroBins2 = document.getElementById("numeroBins2") as  HTMLInputElement;
 
-let pesoBinsVacios = document.getElementById("pesoBinsVacios") as HTMLDivElement;
+let pesoRecipientesVacios = document.getElementById("pesoRecipientesVacios") as HTMLDivElement;
 let soloFruta = document.getElementById("soloFruta") as HTMLDivElement;
 let promedio = document.getElementById("promedio") as HTMLDivElement;
 let promedioTotalOficina = document.getElementById("promedioTotalOficina") as HTMLDivElement;
@@ -139,7 +144,7 @@ let recipientesTotales2 = document.getElementById("recipientesTotales2") as HTML
 const check2 = document.getElementById("check2") as HTMLInputElement;
 
 
-const checkPremium = document.getElementById("s1-14Oficina") as HTMLInputElement;
+const checkTotesOficina = document.getElementById("s1-14Oficina") as HTMLInputElement;
 const totes2 = document.getElementById("totes2") as HTMLInputElement;
 const checkCalculoTotes = document.getElementById("s1-2Oficina") as HTMLInputElement;
 const divCalcTotes = document.getElementById("checkbox-wrapper-2-Oficina") as HTMLDivElement;
@@ -151,8 +156,8 @@ let delta2 = 0;
 let deltaOficina = 0;
 
 //DISPLAY DE INPUT TOTES
-checkPremium.addEventListener("change",()=>{
-  if (checkPremium.checked) {
+checkTotesOficina.addEventListener("change",()=>{
+  if (checkTotesOficina.checked) {
     totes2.style.display = "block";
     totes2.setAttribute("required","true");
     totes2.value = "";
@@ -226,16 +231,16 @@ xOficinaHidden.addEventListener("submit",evt=>{
         kgBt=0;
       }
 }
-//CALCULOS (CAMBIAR NOMBRE DE pesoBinsVacios PARA MEJOR ENTENDIMIENTO)
+//CALCULOS
       sumaTorres = arrayPesos.reduce((accumulator, currentValue) => accumulator + currentValue,0,);// Acaba siendo un acumulador.
       resultado3.innerHTML = "Diferencia de peso: "+sumaTorres;
       let pesoRecipientesOficinaBins = (Number(tipoBins.selectedOptions[0].value)*Number(numeroBins2.value));
       let pesoRecipientesOficinaTotes = (parseInt(totes2.value)*parseFloat(tipoTote.selectedOptions[0].value)+(inputTotesVacios.value === "" ? 0 : (parseInt(inputTotesVacios.value)*parseFloat(tipoTote.selectedOptions[0].value))));
       resultadoBinsVacios = pesoRecipientesOficinaBins+pesoRecipientesOficinaTotes;
-      pesoBinsVacios.innerHTML = "Peso de recipientes: "+ resultadoBinsVacios+ (checkPremium.checked ? "   ("+pesoRecipientesOficinaBins+" + "+pesoRecipientesOficinaTotes+")": "");
+      pesoRecipientesVacios.innerHTML = "Peso de recipientes: "+ resultadoBinsVacios+ (checkTotesOficina.checked ? "   ("+pesoRecipientesOficinaBins+" + "+pesoRecipientesOficinaTotes+")": "");
       resultadoSoloFruta = sumaTorres-resultadoBinsVacios;
       soloFruta.innerHTML = "Solo fruta neto: "+resultadoSoloFruta;
-      kgBt = resultadoSoloFruta/(checkPremium.checked ? Number(totes2.value) : Number(numeroBins2.value));
+      kgBt = resultadoSoloFruta/(checkTotesOficina.checked ? Number(totes2.value) : Number(numeroBins2.value));
       promedio.innerHTML = isNaN(kgBt) ? '' : "Promedio: "+kgBt.toFixed(5);
       delta2 = Number((kgBt*Number(recipientesTotales2.value)).toFixed(5));
       deltaOficina = (Number(delta2)-delta1);
@@ -255,7 +260,7 @@ xOficinaHidden.addEventListener("submit",evt=>{
     aImprimir.style.opacity = "0";
     pesoTorre.placeholder = "Peso torre";
     numeroBins2.value = "";
-    totes2.value = (checkPremium.checked ? "" : "0"); //Asi se evita NaN despues de limpieza
+    totes2.value = (checkTotesOficina.checked ? "" : "0"); //Asi se evita NaN despues de limpieza
     inputTotesVacios.value = "";
     recipientesTotales2.value = "";
     kgBt=0;
@@ -263,7 +268,7 @@ xOficinaHidden.addEventListener("submit",evt=>{
     setTimeout(() => {
       resultado2.innerHTML = "";
       resultado3.innerHTML = "";
-      pesoBinsVacios.innerHTML = "";
+      pesoRecipientesVacios.innerHTML = "";
       soloFruta.innerHTML = "";
       promedio.innerHTML = "";
       sumaTorres = 0;

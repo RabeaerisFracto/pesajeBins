@@ -1,0 +1,24 @@
+{   
+    "short_name": "Zote",
+    "name": "Zote",
+    "version": "1.0.0",
+    "description": "Pesaje de fruta recepcionada por frigorifico",
+    "author": "Aarón Moncada",
+    "license": "MIT",
+    "background_color": "#ffffff",
+    "theme_color": "#ffffff",
+    "icons":[
+        {  
+        "src": "QC0Z8cx.png",  
+        "type": "image/png",  
+        "sizes": "512x512",  
+        "purpose": "maskable"
+        },
+        {
+        "src": "iconZote.ico",  
+        "type": "image/png",  
+        "sizes": "192x192", 
+        "purpose": "maskable"  
+        }
+    ] 
+}
