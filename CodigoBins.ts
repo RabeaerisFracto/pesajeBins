@@ -248,7 +248,7 @@ xOficinaHidden.addEventListener("submit",evt=>{
         promedioTotalOficina.style.display = "none";
     }else{
       promedioTotalOficina.style.display = "block";
-      promedioTotalOficina.innerHTML = "Promedio total: "+(delta2) + (delta2 == deltaOficina ? "" : "  <span style='color: " + (deltaOficina < 0 ? "red" : "green")+ ";'>("+ Math.round(deltaOficina)+")") + "</span>";
+      promedioTotalOficina.innerHTML = "Promedio total: "+(delta2) + (delta2 == deltaOficina ? "" : "  <span style='color: " + (deltaOficina < 0 ? "red" : "green")+ ";'>("+ (deltaOficina < 0 ? "" : "+") + Math.round(deltaOficina)+")") + "</span>";
   }}
     actualizarValor();
   
