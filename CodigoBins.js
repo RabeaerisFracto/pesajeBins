@@ -74,7 +74,7 @@ xRomanaHidden.addEventListener("submit", function (evt) {
     promedioBinsRomana.innerHTML =
         "Diferencia de peso: " + diferenciaPesoRomana +
             "<br>Peso de Recipientes: " + pesoRecipientesRomana + (checkTotesRomana.checked ? "   (" + pesoRecipientesRomanaBins + " + " + pesoRecipientesRomanaTotes + ")" : "") +
-            "<br/>Solo Fruta neto: " + (delta1) + (delta1 == deltaRomana ? "" : "  <span style='color: " + (deltaRomana < 0 ? "red" : "green") + ";'>(" + (deltaRomana < 0 ? "" : "+") + Math.round(deltaRomana) + ")") + "</span>" +
+            "<br/>Solo Fruta neto: " + (delta1) + (isNaN(deltaRomana) ? "" : (delta1 == deltaRomana ? "" : "  <span style='color: " + (deltaRomana < 0 ? "red" : "green") + ";'>(" + (deltaRomana < 0 ? "" : "+") + Math.round(deltaRomana) + ")") + "</span>") +
             "<br/>Promedio: " + (delta1 / (checkTotesRomana.checked ? (parseInt(totes1.value)) : parseInt(numeroBins1.value))).toFixed(5);
 });
 //BOTON LIMPIAR Y ESTILO
@@ -88,6 +88,8 @@ limpiarRomana.addEventListener("click", function () {
     pesoEntrada.value = "";
     pesoSalida.value = "";
     inputTotesVaciosRomana.value = "";
+    delta1 = 0;
+    isNaN(delta2) ? delta2 = 0 : delta2;
     console.log("Romana limpiada");
     setTimeout(function () {
         promedioBinsRomana.innerHTML = "";
@@ -244,6 +246,9 @@ xOficinaHidden.addEventListener("submit", function (evt) {
         inputTotesVacios.value = "";
         recipientesTotales2.value = "";
         kgBt = 0;
+        delta2 = 0;
+        isNaN(delta2) ? delta2 = 0 : delta2;
+        xOficinaHidden.reset();
         console.log("Array vaciado");
         setTimeout(function () {
             resultado2.innerHTML = "";
@@ -257,6 +262,9 @@ xOficinaHidden.addEventListener("submit", function (evt) {
             actualizarValor();
         }, 510);
     });
+});
+var limpiarTodo = document.getElementById("limpiarTodo");
+limpiarTodo.addEventListener("click", function () {
 });
 //CONTEO TORRES
 numeroBins2.addEventListener("input", function () {

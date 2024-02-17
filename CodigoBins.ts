@@ -83,7 +83,7 @@ xRomanaHidden.addEventListener("submit", evt => {
   promedioBinsRomana.innerHTML =
     "Diferencia de peso: " + diferenciaPesoRomana +
     "<br>Peso de Recipientes: " + pesoRecipientesRomana + (checkTotesRomana.checked ? "   ("+pesoRecipientesRomanaBins+" + "+pesoRecipientesRomanaTotes+")": "")+
-    "<br/>Solo Fruta neto: " + (delta1) + (delta1 == deltaRomana ? "" : "  <span style='color: " + (deltaRomana < 0 ? "red" : "green")+ ";'>("+ (deltaRomana < 0 ? "" : "+") +Math.round(deltaRomana)+")") + "</span>" +
+    "<br/>Solo Fruta neto: " + (delta1) + (isNaN(deltaRomana)? "" : (delta1 == deltaRomana ? "" : "  <span style='color: " + (deltaRomana < 0 ? "red" : "green")+ ";'>("+ (deltaRomana < 0 ? "" : "+") +Math.round(deltaRomana)+")") + "</span>") +
     "<br/>Promedio: " + (delta1 / (checkTotesRomana.checked ? (parseInt(totes1.value)) : parseInt(numeroBins1.value))).toFixed(5);
   }
 );
@@ -98,6 +98,8 @@ limpiarRomana.addEventListener("click",()=>{
   pesoEntrada.value = "";
   pesoSalida.value = "";
   inputTotesVaciosRomana.value = "";
+  delta1 = 0;
+  isNaN(delta2) ? delta2 = 0 : delta2;
   console.log("Romana limpiada");
   setTimeout(() => {
     promedioBinsRomana.innerHTML = "";
@@ -127,7 +129,7 @@ check1.addEventListener("change",()=>{
 //-----------------------------OFICINA----------------------------------
 
 const submit = document.getElementById("submit") as HTMLButtonElement;
-let xOficinaHidden = document.querySelector(".xOficinaHidden") as HTMLElement;
+let xOficinaHidden = document.querySelector(".xOficinaHidden") as HTMLFormElement;
 let xOficina = document.getElementById("xOficina") as HTMLElement;
 const aImprimir = document.getElementById("aImprimir") as HTMLDivElement;
 
@@ -264,6 +266,9 @@ xOficinaHidden.addEventListener("submit",evt=>{
     inputTotesVacios.value = "";
     recipientesTotales2.value = "";
     kgBt=0;
+    delta2=0;
+    isNaN(delta2) ? delta2 = 0 : delta2;
+    xOficinaHidden.reset();
     console.log("Array vaciado");
     setTimeout(() => {
       resultado2.innerHTML = "";
@@ -278,6 +283,12 @@ xOficinaHidden.addEventListener("submit",evt=>{
     }, 510);
 })
 })
+
+const limpiarTodo = document.getElementById("limpiarTodo") as HTMLButtonElement;
+limpiarTodo.addEventListener("click",()=>{
+  
+})
+
 
 //CONTEO TORRES
 numeroBins2.addEventListener("input",()=>{
