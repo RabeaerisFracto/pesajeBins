@@ -248,6 +248,7 @@ xOficinaHidden.addEventListener("submit", function (evt) {
         kgBt = 0;
         delta2 = 0;
         isNaN(delta2) ? delta2 = 0 : delta2;
+        totes2.style.display = "none";
         xOficinaHidden.reset();
         console.log("Array vaciado");
         setTimeout(function () {
