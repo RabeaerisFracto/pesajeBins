@@ -7,18 +7,28 @@
     "license": "MIT",
     "background_color": "#ffffff",
     "theme_color": "#ffffff",
+    "display": "minimal-ui",
+    "start_url": "https://zote.vercel.app/",
     "icons":[
         {  
         "src": "QC0Z8cx.png",  
         "type": "image/png",  
         "sizes": "512x512",  
-        "purpose": "maskable"
+        "purpose": "any"
         },
         {
         "src": "iconZote.ico",  
         "type": "image/png",  
         "sizes": "192x192", 
-        "purpose": "maskable"  
+        "purpose": "any"  
+        },
+        {
+        "src": "iconZote.ico",  
+        "type": "image/png",  
+        "sizes": "144x144", 
+        "purpose": "any"  
+        },
+        {
         }
     ] 
 }
