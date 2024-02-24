@@ -5,6 +5,8 @@
 /*# sourceMappingURL=pico.min.css.map */
 body{
   transform: scale(0.80);
+  max-width: 400px;
+  margin: auto;
 }
 
 #divTipoBins{
