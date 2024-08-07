@@ -141,7 +141,7 @@ var deltaOficina = 0;
 checkTotesOficina.addEventListener("change", function () {
     if (checkTotesOficina.checked) {
         totes2.style.display = "block";
-        totes2.setAttribute("required", "true");
+        // totes2.setAttribute("required","true");
         totes2.value = "";
         divCalcTotes.style.display = "flex";
         //////////////TOTES VACIOS
@@ -216,7 +216,7 @@ xOficinaHidden.addEventListener("submit", function (evt) {
         sumaTorres = arrayPesos.reduce(function (accumulator, currentValue) { return accumulator + currentValue; }, 0); // Acaba siendo un acumulador.
         resultado3.innerHTML = "Diferencia de peso: " + sumaTorres;
         var pesoRecipientesOficinaBins = (Number(tipoBins.selectedOptions[0].value) * Number(numeroBins2.value));
-        var pesoRecipientesOficinaTotes = (parseInt(totes2.value) * parseFloat(tipoTote.selectedOptions[0].value) + (inputTotesVacios.value === "" ? 0 : (parseInt(inputTotesVacios.value) * parseFloat(tipoTote.selectedOptions[0].value))));
+        var pesoRecipientesOficinaTotes = (parseInt((totes2.value !== "" ? totes2.value : "0")) * parseFloat(tipoTote.selectedOptions[0].value) + (inputTotesVacios.value === "" ? 0 : (parseInt(inputTotesVacios.value) * parseFloat(tipoTote.selectedOptions[0].value))));
         resultadoBinsVacios = pesoRecipientesOficinaBins + pesoRecipientesOficinaTotes;
         pesoRecipientesVacios.innerHTML = "Peso de recipientes: " + resultadoBinsVacios + (checkTotesOficina.checked ? "   (" + pesoRecipientesOficinaBins + " + " + pesoRecipientesOficinaTotes + ")" : "");
         resultadoSoloFruta = sumaTorres - resultadoBinsVacios;
