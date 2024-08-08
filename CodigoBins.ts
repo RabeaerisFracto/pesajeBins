@@ -32,7 +32,7 @@ let delta1 = 0;
 checkTotesRomana.addEventListener("change",()=>{
   if (checkTotesRomana.checked) {
     totes1.style.display = "block";
-    totes1.setAttribute("required","true");
+    // totes1.setAttribute("required","true");
     totes1.value = "";
     divCalcTotesRomana.style.display = "block";
     checkTotesVaciosRomana.addEventListener("change",()=>{
@@ -68,7 +68,7 @@ checkCalculoTotesRomana.addEventListener("change",()=>{
 }else{
   numeroBins1.focus();
   numeroBins1.addEventListener("input",()=>{
-    totes1.value = totes1.value = "";
+    totes1.value = "";
 })}})
 
 xRomanaHidden.addEventListener("submit", evt => {
@@ -76,7 +76,7 @@ xRomanaHidden.addEventListener("submit", evt => {
   console.log("Formulario enviado");
   let diferenciaPesoRomana = (parseInt(pesoEntrada.value) - parseInt(pesoSalida.value));
   let pesoRecipientesRomanaBins = (parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value));
-  let pesoRecipientesRomanaTotes = (parseInt(totes1.value)*parseFloat(tipoTote.selectedOptions[0].value))+((inputTotesVaciosRomana.value === "" ? 0 : parseInt(inputTotesVaciosRomana.value))*parseFloat(tipoTote.selectedOptions[0].value));
+  let pesoRecipientesRomanaTotes = (parseInt((totes1.value !== "" ? totes1.value : "0"))*parseFloat(tipoTote.selectedOptions[0].value))+((inputTotesVaciosRomana.value === "" ? 0 : parseInt(inputTotesVaciosRomana.value))*parseFloat(tipoTote.selectedOptions[0].value));
   let pesoRecipientesRomana = pesoRecipientesRomanaBins+pesoRecipientesRomanaTotes;
   delta1 = (diferenciaPesoRomana - pesoRecipientesRomana);
   let deltaRomana = delta1 - delta2;

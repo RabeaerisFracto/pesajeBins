@@ -21,7 +21,7 @@ var delta1 = 0;
 checkTotesRomana.addEventListener("change", function () {
     if (checkTotesRomana.checked) {
         totes1.style.display = "block";
-        totes1.setAttribute("required", "true");
+        // totes1.setAttribute("required","true");
         totes1.value = "";
         divCalcTotesRomana.style.display = "block";
         checkTotesVaciosRomana.addEventListener("change", function () {
@@ -58,7 +58,7 @@ checkCalculoTotesRomana.addEventListener("change", function () {
     else {
         numeroBins1.focus();
         numeroBins1.addEventListener("input", function () {
-            totes1.value = totes1.value = "";
+            totes1.value = "";
         });
     }
 });
@@ -67,7 +67,7 @@ xRomanaHidden.addEventListener("submit", function (evt) {
     console.log("Formulario enviado");
     var diferenciaPesoRomana = (parseInt(pesoEntrada.value) - parseInt(pesoSalida.value));
     var pesoRecipientesRomanaBins = (parseInt(tipoBins.selectedOptions[0].value) * parseInt(numeroBins1.value));
-    var pesoRecipientesRomanaTotes = (parseInt(totes1.value) * parseFloat(tipoTote.selectedOptions[0].value)) + ((inputTotesVaciosRomana.value === "" ? 0 : parseInt(inputTotesVaciosRomana.value)) * parseFloat(tipoTote.selectedOptions[0].value));
+    var pesoRecipientesRomanaTotes = (parseInt((totes1.value !== "" ? totes1.value : "0")) * parseFloat(tipoTote.selectedOptions[0].value)) + ((inputTotesVaciosRomana.value === "" ? 0 : parseInt(inputTotesVaciosRomana.value)) * parseFloat(tipoTote.selectedOptions[0].value));
     var pesoRecipientesRomana = pesoRecipientesRomanaBins + pesoRecipientesRomanaTotes;
     delta1 = (diferenciaPesoRomana - pesoRecipientesRomana);
     var deltaRomana = delta1 - delta2;
