@@ -1,7 +1,7 @@
 {   
     "short_name": "Zote",
     "name": "Zote",
-    "version": "0.9.2",
+    "version": "0.9.3",
     "description": "Pesaje de fruta recepcionada por frigorifico",
     "author": "Aarón Moncada",
     "license": "MIT",

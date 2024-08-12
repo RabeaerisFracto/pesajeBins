@@ -106,7 +106,7 @@ check1.addEventListener("change", function () {
             xRomanaHidden.style.opacity = "1";
             xRomanaHidden.style.transform = "translateX(0px)";
         }, 230);
-        xOficina.style.transform = "translateY(390px)";
+        xOficina.style.transform = "translateY(520px)";
     }
     else {
         // xOficinaHidden.classList.remove("mostrar2");
