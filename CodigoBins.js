@@ -100,18 +100,20 @@ limpiarRomana.addEventListener("click", function () {
 check1.addEventListener("change", function () {
     if (check1.checked) {
         // xOficinaHidden.classList.add("mostrar2");
-        xRomana.style.height = "fit-content";
+        xRomana.style.height = "1px";
         xRomana.style.transition = "all 0.5s ease";
         xRomanaHidden.style.opacity = "1";
         xRomanaHidden.style.transform = "translateX(0px)";
+        xOficina.style.transform = "translateY(390px)";
     }
     else {
         // xOficinaHidden.classList.remove("mostrar2");
         // clases no afectan de lamisma manera a un div que a un form
-        xRomana.style.height = "45px";
+        xRomana.style.height = "1px";
         xRomana.style.transition = "all 0.5s ease";
         xRomanaHidden.style.opacity = "0";
         xRomanaHidden.style.transform = "translateX(-450px)";
+        xOficina.style.transform = "translateY(45px)";
     }
 });
 //-----------------------------OFICINA----------------------------------
