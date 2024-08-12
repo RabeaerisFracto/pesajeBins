@@ -111,10 +111,12 @@ limpiarRomana.addEventListener("click",()=>{
 check1.addEventListener("change",()=>{
   if (check1.checked) {
     // xOficinaHidden.classList.add("mostrar2");
-    xRomana.style.height = "1px";
-    xRomana.style.transition = "all 0.5s ease";
-    xRomanaHidden.style.opacity = "1";
-    xRomanaHidden.style.transform = "translateX(0px)";
+      xRomana.style.transition = "all 0.5s ease";
+      xRomana.style.height = "1px";
+      setTimeout(() => {
+        xRomanaHidden.style.opacity = "1";
+        xRomanaHidden.style.transform = "translateX(0px)";
+      }, 230);
     xOficina.style.transform = "translateY(390px)";
   }else{
     // xOficinaHidden.classList.remove("mostrar2");
@@ -124,7 +126,6 @@ check1.addEventListener("change",()=>{
     xRomanaHidden.style.opacity = "0";
     xRomanaHidden.style.transform = "translateX(-450px)";
     xOficina.style.transform = "translateY(45px)";
-
   }
 })
 

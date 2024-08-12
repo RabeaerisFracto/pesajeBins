@@ -100,10 +100,12 @@ limpiarRomana.addEventListener("click", function () {
 check1.addEventListener("change", function () {
     if (check1.checked) {
         // xOficinaHidden.classList.add("mostrar2");
-        xRomana.style.height = "1px";
         xRomana.style.transition = "all 0.5s ease";
-        xRomanaHidden.style.opacity = "1";
-        xRomanaHidden.style.transform = "translateX(0px)";
+        xRomana.style.height = "1px";
+        setTimeout(function () {
+            xRomanaHidden.style.opacity = "1";
+            xRomanaHidden.style.transform = "translateX(0px)";
+        }, 230);
         xOficina.style.transform = "translateY(390px)";
     }
     else {
