@@ -117,7 +117,7 @@ check1.addEventListener("change",()=>{
         xRomanaHidden.style.opacity = "1";
         xRomanaHidden.style.transform = "translateX(0px)";
       }, 230);
-    xOficina.style.transform = "translateY(520px)";
+    xOficina.style.transform = "translateY(36em)";
   }else{
     // xOficinaHidden.classList.remove("mostrar2");
     // clases no afectan de lamisma manera a un div que a un form
